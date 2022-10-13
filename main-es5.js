@@ -917,7 +917,7 @@
               this.serverService.fetchDropdownData_get(url, this.unitData['user_id']).then(function (response) {
                 var options = ''; //let res = {"data":[{"child_info_id":1,"child_id":1234,"location":22,"full_name":"Child","father_name":"Father","mother_name":"asas","gender":"1","dob":"2022-05-09","age":3,"age_group":3,"sit_yes_no":5,"sit_joining_date":"2022-05-09","child_in_last_year":7,"current_year_enrollment":12,"covered_in_readiness":18,"type_of_phone":20,"contact_number":"9956065246","creation_timestamp":"2022-05-09T10:13:20Z","last_modified":"2022-05-09T10:13:20Z","is_active":1},{"child_info_id":2,"child_id":11,"location":22,"full_name":"sd","father_name":"ssmn","mother_name":"jjsj","gender":"1","dob":"2022-05-10","age":4,"age_group":3,"sit_yes_no":6,"sit_joining_date":null,"child_in_last_year":9,"current_year_enrollment":15,"covered_in_readiness":18,"type_of_phone":21,"contact_number":"9978123456","creation_timestamp":"2022-05-10T05:41:19Z","last_modified":"2022-05-10T05:41:19Z","is_active":1}]};
 
-                _this4.dropResponse = response.results;
+                _this4.dropResponse = response['data']['results'];
                 console.log(_this4.dropResponse); //this.dropResponse = response;
 
                 _this4.dropResponse.forEach(function (element) {
@@ -925,7 +925,7 @@
                   //console.log(element.child_id);
 
                   var option = $('<option />');
-                  option.attr('value', element.child_id).attr('child_name', element.child_name).text(element.child_code);
+                  option.attr('value', element.child_id).attr('child_name', element.child_name).attr('child_code', element.child_code).text(element.child_code + ':' + element.child_name);
                   $('#' + _this4.elementData.element_id).append(option);
                 });
 
@@ -952,24 +952,32 @@
             var element_id = this.elementData.element_id;
             console.log(element_id);
 
-            if (element_id == "18") {
+            if (element_id == "11") {
               //console.log($("#"+element_id+ " option:selected").attr("child_name"))
-              $('#19').val($("#" + element_id + " option:selected").attr("child_name"));
-              $('#19').attr('disabled', 'disabled');
-              var child_code_val = $("#" + element_id + " option:selected").text(); //$('#'element_id).att('')
+              $('#12').val($("#" + element_id + " option:selected").attr("child_code"));
+              $('#12').attr('disabled', 'disabled');
+              $('#13').val($("#" + element_id + " option:selected").attr("child_name"));
+              $('#13').attr('disabled', 'disabled'); //let child_code_val = $("#"+element_id+ " option:selected").text();      
+              //$('#'element_id).att('')
               //$("#"+element_id+ " option:selected").attr("child_name");
 
-              localStorage.setItem('child_id', selected_id);
-              localStorage.setItem('child_code', child_code_val);
+              localStorage.setItem('child_id', selected_id); //localStorage.setItem('child_code', child_code_val);
             }
 
-            var change_action = this.elementData.change_action; // let el_status_f = $('#25').val();
-            // if((el_status_f==1)){
-            //   $('#26').attr('is_required','true');
-            //   $('#26').removeAttr('disabled');
-            // }else{
-            //   $('#26').attr('is_required','false');
-            //   $('#26').attr('disabled','disabled');
+            var change_action = this.elementData.change_action;
+            var current_status = $('#14').val();
+            console.log(current_status);
+
+            if (current_status == 3) {
+              //$('#15').attr('is_required','false');
+              $('#15').attr('disabled', 'disabled'); //$('#16').attr('is_required','false');
+
+              $('#16').attr('disabled', 'disabled');
+            } // else{
+            //   $('#15').attr('is_required','true');
+            //   $('#15').removeAttr('disabled');
+            //   $('#16').attr('is_required','true');
+            //   $('#16').removeAttr('disabled');
             // }
             // if(($('#252').val()==0) || ($('#252').val()==2)){
             //   console.log("252 0 status chk");
@@ -1353,6 +1361,7 @@
             //   $('#35').attr('is_required','false');
             //   $('#35').attr('disabled','disabled');
             // }
+
 
             this.action.emit({
               response: response,
@@ -1862,7 +1871,7 @@
 
     /***/
     function qH(module) {
-      module.exports = JSON.parse("[{\"element_type\":\"page\",\"element_data\":{\"element_title\":\"\",\"element_subtitle\":\"\"},\"get_url\":\"https://tarlinsights.org/impact/api/user/\",\"element_id\":1,\"childrens\":[{\"element_id\":0,\"element_type\":\"section\",\"element_size\":12,\"element_data\":{\"element_title\":\"LC Locations \",\"element_subtitle\":\"\"},\"childrens\":[{\"element_id\":1,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"state_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"State\",\"hi\":\"State\",\"mr\":\"State\",\"gu\":\"State\",\"bn\":\"রাজ্য\",\"as\":\"State\",\"or\":\"State\",\"te\":\"State\",\"kn\":\"State\",\"ta\":\"State\",\"ur\":\"State\",\"pa\":\"State\"},\"elementTooltip\":{\"en\":\"State\",\"hi\":\"State\",\"mr\":\"State\",\"gu\":\"State\",\"bn\":\"State\",\"as\":\"State\",\"or\":\"State\",\"te\":\"State\",\"kn\":\"State\",\"ta\":\"State\",\"ur\":\"State\",\"pa\":\"State\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":2,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"state\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"State\",\"hi\":\"State\",\"mr\":\"State\",\"gu\":\"State\",\"bn\":\"রাজ্য\",\"as\":\"State\",\"or\":\"State\",\"te\":\"State\",\"kn\":\"State\",\"ta\":\"State\",\"ur\":\"State\",\"pa\":\"State\"},\"elementTooltip\":{\"en\":\"State\",\"hi\":\"State\",\"mr\":\"State\",\"gu\":\"State\",\"bn\":\"State\",\"as\":\"State\",\"or\":\"State\",\"te\":\"State\",\"kn\":\"State\",\"ta\":\"State\",\"ur\":\"State\",\"pa\":\"State\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":3,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"district_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"District\",\"hi\":\"District\",\"mr\":\"District\",\"gu\":\"District\",\"bn\":\"District\",\"as\":\"District\",\"or\":\"District\",\"te\":\"District\",\"kn\":\"District\",\"ta\":\"District\",\"ur\":\"District\",\"pa\":\"District\"},\"elementTooltip\":{\"en\":\"District\",\"hi\":\"District\",\"mr\":\"District\",\"gu\":\"District\",\"bn\":\"District\",\"as\":\"District\",\"or\":\"District\",\"te\":\"District\",\"kn\":\"District\",\"ta\":\"District\",\"ur\":\"District\",\"pa\":\"District\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":4,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"district\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"District\",\"hi\":\"District\",\"mr\":\"District\",\"gu\":\"District\",\"bn\":\"জেলা\",\"as\":\"District\",\"or\":\"District\",\"te\":\"District\",\"kn\":\"District\",\"ta\":\"District\",\"ur\":\"District\",\"pa\":\"District\"},\"elementTooltip\":{\"en\":\"District\",\"hi\":\"District\",\"mr\":\"District\",\"gu\":\"District\",\"bn\":\"District\",\"as\":\"District\",\"or\":\"District\",\"te\":\"District\",\"kn\":\"District\",\"ta\":\"District\",\"ur\":\"District\",\"pa\":\"District\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":5,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"block_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"elementTooltip\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":6,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":7,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":8,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"block\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"ব্লক\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"elementTooltip\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":9,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lc_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC কোড\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"elementTooltip\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC Code\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":10,\"element_type\":\"ElementText\",\"element_size\":3,\"database_param\":\"lc_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC নাম\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"elementTooltip\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC Name\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":11,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"supervisor_name\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Supervisor Name\",\"hi\":\"Supervisor Name\",\"mr\":\"Supervisor Name\",\"gu\":\"Supervisor Name\",\"bn\":\"সুপারভাইজার নাম\",\"as\":\"Supervisor Name\",\"or\":\"Supervisor Name\",\"te\":\"Supervisor Name\",\"kn\":\"Supervisor Name\",\"ta\":\"Supervisor Name\",\"ur\":\"Supervisor Name\",\"pa\":\"Supervisor Name\"},\"elementTooltip\":{\"en\":\"Supervisor Name\",\"hi\":\"Supervisor Name\",\"mr\":\"Supervisor Name\",\"gu\":\"Supervisor Name\",\"bn\":\"Supervisor Name\",\"as\":\"Supervisor Name\",\"or\":\"Supervisor Name\",\"te\":\"Supervisor Name\",\"kn\":\"Supervisor Name\",\"ta\":\"Supervisor Name\",\"ur\":\"Supervisor Name\",\"pa\":\"Supervisor Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":12,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"donor_name\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Donor Name\",\"hi\":\"Donor Name\",\"mr\":\"Donor Name\",\"gu\":\"Donor Name\",\"bn\":\"ডোনার নাম\",\"as\":\"Donor Name\",\"or\":\"Donor Name\",\"te\":\"Donor Name\",\"kn\":\"Donor Name\",\"ta\":\"Donor Name\",\"ur\":\"Donor Name\",\"pa\":\"Donor Name\"},\"elementTooltip\":{\"en\":\"Donor Name\",\"hi\":\"Donor Name\",\"mr\":\"Donor Name\",\"gu\":\"Donor Name\",\"bn\":\"Donor Name\",\"as\":\"Donor Name\",\"or\":\"Donor Name\",\"te\":\"Donor Name\",\"kn\":\"Donor Name\",\"ta\":\"Donor Name\",\"ur\":\"Donor Name\",\"pa\":\"Donor Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":13,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"teacher_code\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Teacher Code\",\"hi\":\"Teacher Code\",\"mr\":\"Teacher Code\",\"gu\":\"Teacher Code\",\"bn\":\"শিক্ষকের কোড\",\"as\":\"Teacher Code\",\"or\":\"Teacher Code\",\"te\":\"Teacher Code\",\"kn\":\"Teacher Code\",\"ta\":\"Teacher Code\",\"ur\":\"Teacher Code\",\"pa\":\"Teacher Code\"},\"elementTooltip\":{\"en\":\"Teacher Code\",\"hi\":\"Teacher Code\",\"mr\":\"Teacher Code\",\"gu\":\"Teacher Code\",\"bn\":\"Teacher Code\",\"as\":\"Teacher Code\",\"or\":\"Teacher Code\",\"te\":\"Teacher Code\",\"kn\":\"Teacher Code\",\"ta\":\"Teacher Code\",\"ur\":\"Teacher Code\",\"pa\":\"Teacher Code\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":14,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"teacher_name\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Teacher Name\",\"hi\":\"Teacher Name\",\"mr\":\"Teacher Name\",\"gu\":\"Teacher Name\",\"bn\":\"শিক্ষকের নাম\",\"as\":\"Teacher Name\",\"or\":\"Teacher Name\",\"te\":\"Teacher Name\",\"kn\":\"Teacher Name\",\"ta\":\"Teacher Name\",\"ur\":\"Teacher Name\",\"pa\":\"Teacher Name\"},\"elementTooltip\":{\"en\":\"Teacher Name\",\"hi\":\"Teacher Name\",\"mr\":\"Teacher Name\",\"gu\":\"Teacher Name\",\"bn\":\"Teacher Name\",\"as\":\"Teacher Name\",\"or\":\"Teacher Name\",\"te\":\"Teacher Name\",\"kn\":\"Teacher Name\",\"ta\":\"Teacher Name\",\"ur\":\"Teacher Name\",\"pa\":\"Teacher Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":15,\"element_type\":\"ElementText\",\"element_size\":3,\"database_param\":\"pngo\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"PNGO Name\",\"hi\":\"PNGO Name\",\"mr\":\"PNGO Name\",\"gu\":\"PNGO Name\",\"bn\":\"PNGO নাম\",\"as\":\"PNGO Name\",\"or\":\"PNGO Name\",\"te\":\"PNGO Name\",\"kn\":\"PNGO Name\",\"ta\":\"PNGO Name\",\"ur\":\"PNGO Name\",\"pa\":\"PNGO Name\"},\"elementTooltip\":{\"en\":\"PNGO Name\",\"hi\":\"PNGO Name\",\"mr\":\"PNGO Name\",\"gu\":\"PNGO Name\",\"bn\":\"PNGO Name\",\"as\":\"PNGO Name\",\"or\":\"PNGO Name\",\"te\":\"PNGO Name\",\"kn\":\"PNGO Name\",\"ta\":\"PNGO Name\",\"ur\":\"PNGO Name\",\"pa\":\"PNGO Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":16,\"element_type\":\"ElementButton\",\"element_size\":12,\"database_param\":\"btn_save\",\"is_required\":\"false\",\"is_editable\":\"true\",\"input_type\":\"button\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"elementTooltip\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"element_data\":{\"options\":[],\"submit-url\":\"https://tarlinsights.org/impact/api/user/\",\"method\":\"post\",\"parameters\":{\"action\":\"update\"}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null}]},{\"element_id\":\"2\",\"element_type\":\"table\",\"element_size\":12,\"element_data\":{\"element_title\":\"Location List\",\"element_subtitle\":\"\",\"element_url\":\"https://tarlinsights.org/impact/api/user/\",\"element_parameters\":{\"unit_id\":\"1\"},\"element_header\":[{\"param\":\"lc_code\",\"label\":\"LC Code\"},{\"param\":\"lc_name\",\"label\":\"LC Name\"},{\"param\":\"supervisor_name\",\"label\":\"supervisor_name\"},{\"param\":\"block_name\",\"label\":\"Block\"},{\"param\":\"pngo\",\"label\":\"PNGO\"}]}}]}]");
+      module.exports = JSON.parse("[{\"element_type\":\"page\",\"element_data\":{\"element_title\":\"\",\"element_subtitle\":\"\"},\"element_id\":1,\"childrens\":[{\"element_id\":0,\"element_type\":\"section\",\"element_size\":12,\"element_data\":{\"element_title\":\"LC Locations \",\"element_subtitle\":\"\"},\"childrens\":[{\"element_id\":1,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"state_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"State\",\"hi\":\"State\",\"mr\":\"State\",\"gu\":\"State\",\"bn\":\"রাজ্য\",\"as\":\"State\",\"or\":\"State\",\"te\":\"State\",\"kn\":\"State\",\"ta\":\"State\",\"ur\":\"State\",\"pa\":\"State\"},\"elementTooltip\":{\"en\":\"State\",\"hi\":\"State\",\"mr\":\"State\",\"gu\":\"State\",\"bn\":\"State\",\"as\":\"State\",\"or\":\"State\",\"te\":\"State\",\"kn\":\"State\",\"ta\":\"State\",\"ur\":\"State\",\"pa\":\"State\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":2,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"state\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"State\",\"hi\":\"State\",\"mr\":\"State\",\"gu\":\"State\",\"bn\":\"রাজ্য\",\"as\":\"State\",\"or\":\"State\",\"te\":\"State\",\"kn\":\"State\",\"ta\":\"State\",\"ur\":\"State\",\"pa\":\"State\"},\"elementTooltip\":{\"en\":\"State\",\"hi\":\"State\",\"mr\":\"State\",\"gu\":\"State\",\"bn\":\"State\",\"as\":\"State\",\"or\":\"State\",\"te\":\"State\",\"kn\":\"State\",\"ta\":\"State\",\"ur\":\"State\",\"pa\":\"State\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":3,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"district_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"District\",\"hi\":\"District\",\"mr\":\"District\",\"gu\":\"District\",\"bn\":\"District\",\"as\":\"District\",\"or\":\"District\",\"te\":\"District\",\"kn\":\"District\",\"ta\":\"District\",\"ur\":\"District\",\"pa\":\"District\"},\"elementTooltip\":{\"en\":\"District\",\"hi\":\"District\",\"mr\":\"District\",\"gu\":\"District\",\"bn\":\"District\",\"as\":\"District\",\"or\":\"District\",\"te\":\"District\",\"kn\":\"District\",\"ta\":\"District\",\"ur\":\"District\",\"pa\":\"District\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":4,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"district\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"District\",\"hi\":\"District\",\"mr\":\"District\",\"gu\":\"District\",\"bn\":\"জেলা\",\"as\":\"District\",\"or\":\"District\",\"te\":\"District\",\"kn\":\"District\",\"ta\":\"District\",\"ur\":\"District\",\"pa\":\"District\"},\"elementTooltip\":{\"en\":\"District\",\"hi\":\"District\",\"mr\":\"District\",\"gu\":\"District\",\"bn\":\"District\",\"as\":\"District\",\"or\":\"District\",\"te\":\"District\",\"kn\":\"District\",\"ta\":\"District\",\"ur\":\"District\",\"pa\":\"District\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":5,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"block_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"elementTooltip\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":6,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":7,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":8,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"block\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"ব্লক\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"elementTooltip\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":9,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lc_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC কোড\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"elementTooltip\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC Code\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":10,\"element_type\":\"ElementText\",\"element_size\":3,\"database_param\":\"lc_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC নাম\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"elementTooltip\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC Name\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":12,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"donor_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Donor Name\",\"hi\":\"Donor Name\",\"mr\":\"Donor Name\",\"gu\":\"Donor Name\",\"bn\":\"ডোনার নাম\",\"as\":\"Donor Name\",\"or\":\"Donor Name\",\"te\":\"Donor Name\",\"kn\":\"Donor Name\",\"ta\":\"Donor Name\",\"ur\":\"Donor Name\",\"pa\":\"Donor Name\"},\"elementTooltip\":{\"en\":\"Donor Name\",\"hi\":\"Donor Name\",\"mr\":\"Donor Name\",\"gu\":\"Donor Name\",\"bn\":\"Donor Name\",\"as\":\"Donor Name\",\"or\":\"Donor Name\",\"te\":\"Donor Name\",\"kn\":\"Donor Name\",\"ta\":\"Donor Name\",\"ur\":\"Donor Name\",\"pa\":\"Donor Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":15,\"element_type\":\"ElementText\",\"element_size\":3,\"database_param\":\"pngo\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"PNGO Name\",\"hi\":\"PNGO Name\",\"mr\":\"PNGO Name\",\"gu\":\"PNGO Name\",\"bn\":\"PNGO নাম\",\"as\":\"PNGO Name\",\"or\":\"PNGO Name\",\"te\":\"PNGO Name\",\"kn\":\"PNGO Name\",\"ta\":\"PNGO Name\",\"ur\":\"PNGO Name\",\"pa\":\"PNGO Name\"},\"elementTooltip\":{\"en\":\"PNGO Name\",\"hi\":\"PNGO Name\",\"mr\":\"PNGO Name\",\"gu\":\"PNGO Name\",\"bn\":\"PNGO Name\",\"as\":\"PNGO Name\",\"or\":\"PNGO Name\",\"te\":\"PNGO Name\",\"kn\":\"PNGO Name\",\"ta\":\"PNGO Name\",\"ur\":\"PNGO Name\",\"pa\":\"PNGO Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":11,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"supervisor_name\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Supervisor Name\",\"hi\":\"Supervisor Name\",\"mr\":\"Supervisor Name\",\"gu\":\"Supervisor Name\",\"bn\":\"সুপারভাইজার নাম\",\"as\":\"Supervisor Name\",\"or\":\"Supervisor Name\",\"te\":\"Supervisor Name\",\"kn\":\"Supervisor Name\",\"ta\":\"Supervisor Name\",\"ur\":\"Supervisor Name\",\"pa\":\"Supervisor Name\"},\"elementTooltip\":{\"en\":\"Supervisor Name\",\"hi\":\"Supervisor Name\",\"mr\":\"Supervisor Name\",\"gu\":\"Supervisor Name\",\"bn\":\"Supervisor Name\",\"as\":\"Supervisor Name\",\"or\":\"Supervisor Name\",\"te\":\"Supervisor Name\",\"kn\":\"Supervisor Name\",\"ta\":\"Supervisor Name\",\"ur\":\"Supervisor Name\",\"pa\":\"Supervisor Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":13,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"teacher_code\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Teacher Code\",\"hi\":\"Teacher Code\",\"mr\":\"Teacher Code\",\"gu\":\"Teacher Code\",\"bn\":\"শিক্ষকের কোড\",\"as\":\"Teacher Code\",\"or\":\"Teacher Code\",\"te\":\"Teacher Code\",\"kn\":\"Teacher Code\",\"ta\":\"Teacher Code\",\"ur\":\"Teacher Code\",\"pa\":\"Teacher Code\"},\"elementTooltip\":{\"en\":\"Teacher Code\",\"hi\":\"Teacher Code\",\"mr\":\"Teacher Code\",\"gu\":\"Teacher Code\",\"bn\":\"Teacher Code\",\"as\":\"Teacher Code\",\"or\":\"Teacher Code\",\"te\":\"Teacher Code\",\"kn\":\"Teacher Code\",\"ta\":\"Teacher Code\",\"ur\":\"Teacher Code\",\"pa\":\"Teacher Code\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":14,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"teacher_name\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Teacher Name\",\"hi\":\"Teacher Name\",\"mr\":\"Teacher Name\",\"gu\":\"Teacher Name\",\"bn\":\"শিক্ষকের নাম\",\"as\":\"Teacher Name\",\"or\":\"Teacher Name\",\"te\":\"Teacher Name\",\"kn\":\"Teacher Name\",\"ta\":\"Teacher Name\",\"ur\":\"Teacher Name\",\"pa\":\"Teacher Name\"},\"elementTooltip\":{\"en\":\"Teacher Name\",\"hi\":\"Teacher Name\",\"mr\":\"Teacher Name\",\"gu\":\"Teacher Name\",\"bn\":\"Teacher Name\",\"as\":\"Teacher Name\",\"or\":\"Teacher Name\",\"te\":\"Teacher Name\",\"kn\":\"Teacher Name\",\"ta\":\"Teacher Name\",\"ur\":\"Teacher Name\",\"pa\":\"Teacher Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":16,\"element_type\":\"ElementButton\",\"element_size\":12,\"database_param\":\"btn_save\",\"is_required\":\"false\",\"is_editable\":\"true\",\"input_type\":\"button\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"elementTooltip\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"element_data\":{\"options\":[],\"submit-url\":\"http://15.206.158.219/locations/\",\"method\":\"post\",\"parameters\":{\"action\":\"update\"}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null}]},{\"element_id\":\"2\",\"element_type\":\"table\",\"element_size\":12,\"element_data\":{\"element_title\":\"Location List\",\"element_subtitle\":\"\",\"element_url\":\"http://15.206.158.219/locations/\",\"element_parameters\":{\"unit_id\":\"1\"},\"element_header\":[{\"param\":\"lc_code\",\"label\":\"LC Code\"},{\"param\":\"lc_name\",\"label\":\"LC Name\"},{\"param\":\"supervisor_name\",\"label\":\"supervisor_name\"},{\"param\":\"block_name\",\"label\":\"Block\"},{\"param\":\"pngo\",\"label\":\"PNGO\"}]}}]}]");
       /***/
     },
 
@@ -2183,20 +2192,6 @@
     },
 
     /***/
-    "FCQU":
-    /*!*****************************************!*\
-      !*** ./balvachan-child-attendance.json ***!
-      \*****************************************/
-
-    /*! exports provided: 0, default */
-
-    /***/
-    function FCQU(module) {
-      module.exports = JSON.parse("[{\"element_type\":\"page\",\"element_data\":{\"element_title\":\"\",\"element_subtitle\":\"\"},\"element_id\":1,\"childrens\":[{\"element_id\":\"2\",\"element_type\":\"table\",\"element_size\":12,\"element_data\":{\"element_title\":\"Attendance Info - Teaching Days\",\"element_subtitle\":\"\",\"element_url\":\"https://dataentry.prathamapps.com/balvachan/attendance_info/\",\"element_parameters\":{\"action\":\"get\",\"unit_id\":\"1\"},\"element_header\":[{\"param\":\"may_teaching_day\",\"label\":\"May 2021\"},{\"param\":\"june_teaching_day\",\"label\":\"June 2021\"},{\"param\":\"july_teaching_day\",\"label\":\"July 2021\"},{\"param\":\"august_teaching_day\",\"label\":\"August 2021\"},{\"param\":\"september_teaching_day\",\"label\":\"Septermber 2021\"},{\"param\":\"october_teaching_day\",\"label\":\"October 2021\"},{\"param\":\"november_teaching_day\",\"label\":\"November 2021\"},{\"param\":\"december_teaching_day\",\"label\":\"December 2021\"},{\"param\":\"janauary_teaching_day\",\"label\":\"January 2022\"},{\"param\":\"february_teaching_day\",\"label\":\"February 2022\"},{\"param\":\"march_teaching_day\",\"label\":\"march 2022\"}]}},{\"element_id\":5,\"element_type\":\"section\",\"element_size\":12,\"element_data\":{\"element_title\":\"Child Attendance\",\"element_subtitle\":\"\"},\"childrens\":[{\"element_id\":1,\"element_type\":\"ElementHidden\",\"element_size\":4,\"database_param\":\"state_id\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"\"},\"elementTooltip\":{\"en\":\"\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":2,\"element_type\":\"ElementHidden\",\"element_size\":4,\"database_param\":\"district_id\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"\"},\"elementTooltip\":{\"en\":\"\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":3,\"element_type\":\"ElementHidden\",\"element_size\":4,\"database_param\":\"block_id\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"\"},\"elementTooltip\":{\"en\":\"\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":4,\"element_type\":\"ElementHidden\",\"element_size\":4,\"database_param\":\"unit_id\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"\"},\"elementTooltip\":{\"en\":\"\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":5,\"element_type\":\"ElementHidden\",\"element_size\":4,\"database_param\":\"village_id\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"\"},\"elementTooltip\":{\"en\":\"\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":6,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"state_name\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"State\"},\"elementTooltip\":{\"en\":\"State\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":7,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"district_name\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"District / City\"},\"elementTooltip\":{\"en\":\"District / City\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":8,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"unit_code\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Unit Code\"},\"elementTooltip\":{\"en\":\"Unit Code\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":9,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"block_name\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Block / Ward\"},\"elementTooltip\":{\"en\":\"Block / Ward\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":10,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"unit_name\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Village/Town/Locality/Community\"},\"elementTooltip\":{\"en\":\"Village/Town/Locality/Community\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":11,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"child_attendance_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Child Attendance\"},\"elementTooltip\":{\"en\":\"Child Attendance\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":12,\"element_type\":\"ElementDropDown\",\"element_size\":1,\"database_param\":\"child_info\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"dropdown\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Child ID\"},\"elementTooltip\":{\"en\":\"Child ID\"},\"element_data\":{\"options\":[],\"data_url\":\"https://dataentry.prathamapps.com/balvachan/child_info/\",\"data_paramters\":{\"action\":\"get\",\"unit_id\":\"1\"}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":13,\"element_type\":\"ElementText\",\"element_size\":1,\"database_param\":\"may_attendance\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"May 2021\"},\"elementTooltip\":{\"en\":\"May 2021\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":14,\"element_type\":\"ElementText\",\"element_size\":1,\"database_param\":\"june_attendance\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"June 2021\"},\"elementTooltip\":{\"en\":\"June 2021\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":15,\"element_type\":\"ElementText\",\"element_size\":1,\"database_param\":\"july_attendance\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"July 2021\"},\"elementTooltip\":{\"en\":\"July 2021\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":16,\"element_type\":\"ElementText\",\"element_size\":1,\"database_param\":\"august_attendance\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"August 2021\"},\"elementTooltip\":{\"en\":\"August 2021\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":17,\"element_type\":\"ElementText\",\"element_size\":1,\"database_param\":\"september_attendance\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"September 2021\"},\"elementTooltip\":{\"en\":\"September 2021\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":18,\"element_type\":\"ElementText\",\"element_size\":1,\"database_param\":\"october_attendance\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"October 2021\"},\"elementTooltip\":{\"en\":\"October 2021\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":19,\"element_type\":\"ElementText\",\"element_size\":1,\"database_param\":\"november_attendance\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"November 2021\"},\"elementTooltip\":{\"en\":\"November 2021\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":20,\"element_type\":\"ElementText\",\"element_size\":1,\"database_param\":\"december_attendance\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"December 2021\"},\"elementTooltip\":{\"en\":\"December 2021\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":21,\"element_type\":\"ElementText\",\"element_size\":1,\"database_param\":\"january_attendance\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"January 2022\"},\"elementTooltip\":{\"en\":\"January 2022\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":22,\"element_type\":\"ElementText\",\"element_size\":1,\"database_param\":\"february_attendance\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"February 2022\"},\"elementTooltip\":{\"en\":\"February 2022\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":23,\"element_type\":\"ElementText\",\"element_size\":1,\"database_param\":\"march_attendance\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"March 2022\"},\"elementTooltip\":{\"en\":\"March 2022\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false},{\"element_id\":24,\"element_type\":\"ElementButton\",\"element_size\":12,\"database_param\":\"\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"button\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Add Child Attendance\"},\"elementTooltip\":{\"en\":\"Add Child Attendance\"},\"element_data\":{\"options\":[],\"data_url\":\"s://dataentry.prathamapps.com/balvachan/child_attendance/\"},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false}]},{\"element_id\":\"2\",\"element_type\":\"table\",\"element_size\":12,\"element_data\":{\"element_title\":\"Child Attendance\",\"element_subtitle\":\"\",\"element_url\":\"https://dataentry.prathamapps.com/balvachan/child_attendance/\",\"element_parameters\":{\"action\":\"get\",\"unit_id\":\"1\"},\"element_header\":[{\"param\":\"child_info_id\",\"label\":\"Child Info Id\"},{\"param\":\"may_teaching_day\",\"label\":\"May 2021\"},{\"param\":\"june_teaching_day\",\"label\":\"June 2021\"},{\"param\":\"july_teaching_day\",\"label\":\"July 2021\"},{\"param\":\"august_teaching_day\",\"label\":\"August 2021\"},{\"param\":\"september_teaching_day\",\"label\":\"Septermber 2021\"},{\"param\":\"october_teaching_day\",\"label\":\"October 2021\"},{\"param\":\"november_teaching_day\",\"label\":\"November 2021\"},{\"param\":\"december_teaching_day\",\"label\":\"December 2021\"},{\"param\":\"janauary_teaching_day\",\"label\":\"January 2022\"},{\"param\":\"february_teaching_day\",\"label\":\"February 2022\"},{\"param\":\"march_teaching_day\",\"label\":\"march 2022\"}]}}]}]");
-      /***/
-    },
-
-    /***/
     "HiV9":
     /*!************************************!*\
       !*** ./iimpact_child_profile.json ***!
@@ -2206,7 +2201,7 @@
 
     /***/
     function HiV9(module) {
-      module.exports = JSON.parse("[{\"element_type\":\"page\",\"element_data\":{\"element_title\":\"\",\"element_subtitle\":\"\"},\"element_id\":1,\"childrens\":[{\"element_id\":0,\"element_type\":\"section\",\"element_size\":12,\"element_data\":{\"element_title\":\"Child Profile \",\"element_subtitle\":\"\"},\"childrens\":[{\"element_id\":6,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":7,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":8,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"block\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"ব্লক\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"elementTooltip\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":9,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC কোড\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"elementTooltip\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC Code\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":10,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC নাম\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"elementTooltip\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC Name\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":16,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"child_profile_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":17,\"element_type\":\"ElementHidden\",\"element_size\":4,\"database_param\":\"child_id\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"ID\",\"hi\":\"ID\",\"mr\":\"ID\",\"gu\":\"ID\",\"bn\":\"ID\",\"as\":\"ID\",\"or\":\"ID\",\"te\":\"ID\",\"kn\":\"ID\",\"ta\":\"ID\",\"ur\":\"ID\",\"pa\":\"ID\"},\"elementTooltip\":{\"en\":\"ID\",\"hi\":\"ID\",\"mr\":\"ID\",\"gu\":\"ID\",\"bn\":\"ID\",\"as\":\"ID\",\"or\":\"ID\",\"te\":\"ID\",\"kn\":\"ID\",\"ta\":\"ID\",\"ur\":\"ID\",\"pa\":\"ID\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":18,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"child_code\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"element_value\":\"CH-\",\"elementLabel\":{\"en\":\"Child Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"বাচ্ছার কোড\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"elementTooltip\":{\"en\":\"Child Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"Child Code\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"element_data\":{\"options\":[],\"data_url\":\"\",\"method\":\"get\",\"data_paramters\":{}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":19,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"child_name\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":112,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"is_active\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"1\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":11,\"element_type\":\"ElementButton\",\"element_size\":12,\"database_param\":\"btn_save\",\"is_required\":\"false\",\"is_editable\":\"true\",\"input_type\":\"button\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"elementTooltip\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"element_data\":{\"options\":[],\"submit-url\":\"https://tarlinsights.org/impact/api/child_profile/\",\"method\":\"post\",\"parameters\":{\"action\":\"insert\"}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null}]},{\"element_id\":\"2\",\"element_type\":\"table\",\"element_size\":12,\"element_data\":{\"element_title\":\"Child Profile\",\"element_subtitle\":\"\",\"element_url\":\"https://tarlinsights.org/impact/api/child_profile/\",\"element_parameters\":{\"unit_id\":\"1\"},\"element_header\":[{\"param\":\"child_id\",\"label\":\"Child Id\"},{\"param\":\"child_code\",\"label\":\"Child Code\"},{\"param\":\"child_name\",\"label\":\"Child Name\"},{\"param\":\"age\",\"label\":\"Age\"}]}}]}]");
+      module.exports = JSON.parse("[{\"element_type\":\"page\",\"element_data\":{\"element_title\":\"\",\"element_subtitle\":\"\"},\"element_id\":1,\"childrens\":[{\"element_id\":0,\"element_type\":\"section\",\"element_size\":12,\"element_data\":{\"element_title\":\"Child Profile \",\"element_subtitle\":\"\"},\"childrens\":[{\"element_id\":6,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":7,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":8,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"block\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"ব্লক\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"elementTooltip\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":9,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC কোড\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"elementTooltip\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC Code\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":10,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC নাম\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"elementTooltip\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC Name\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":16,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"child_profile_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":17,\"element_type\":\"ElementHidden\",\"element_size\":4,\"database_param\":\"child_id\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"ID\",\"hi\":\"ID\",\"mr\":\"ID\",\"gu\":\"ID\",\"bn\":\"ID\",\"as\":\"ID\",\"or\":\"ID\",\"te\":\"ID\",\"kn\":\"ID\",\"ta\":\"ID\",\"ur\":\"ID\",\"pa\":\"ID\"},\"elementTooltip\":{\"en\":\"ID\",\"hi\":\"ID\",\"mr\":\"ID\",\"gu\":\"ID\",\"bn\":\"ID\",\"as\":\"ID\",\"or\":\"ID\",\"te\":\"ID\",\"kn\":\"ID\",\"ta\":\"ID\",\"ur\":\"ID\",\"pa\":\"ID\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":18,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"child_code\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"minLength\":\"9\",\"textLength\":\"9\",\"element_value\":\"CH-\",\"elementLabel\":{\"en\":\"Child Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"বাচ্ছার কোড\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"elementTooltip\":{\"en\":\"Child Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"Child Code\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"element_data\":{\"options\":[],\"data_url\":\"\",\"method\":\"get\",\"data_paramters\":{}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":19,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"child_name\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":112,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"is_active\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"1\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":11,\"element_type\":\"ElementButton\",\"element_size\":12,\"database_param\":\"btn_save\",\"is_required\":\"false\",\"is_editable\":\"true\",\"input_type\":\"button\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"elementTooltip\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"element_data\":{\"options\":[],\"submit-url\":\"http://15.206.158.219/child_profile_list/\",\"method\":\"post\",\"parameters\":{\"action\":\"insert\"}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null}]},{\"element_id\":\"2\",\"element_type\":\"table\",\"element_size\":12,\"element_data\":{\"element_title\":\"Child Profile\",\"element_subtitle\":\"\",\"element_url\":\"http://15.206.158.219/child_profile_list/\",\"element_parameters\":{\"unit_id\":\"1\"},\"element_header\":[{\"param\":\"child_id\",\"label\":\"Child Id\"},{\"param\":\"child_code\",\"label\":\"Child Code\"},{\"param\":\"child_name\",\"label\":\"Child Name\"},{\"param\":\"age\",\"label\":\"Age\"}]}}]}]");
       /***/
     },
 
@@ -2294,73 +2289,63 @@
       /* harmony import */
 
 
-      var _balvachan_child_attendance_json__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-      /*! ../../../balvachan-child-attendance.json */
-      "FCQU");
-
-      var _balvachan_child_attendance_json__WEBPACK_IMPORTED_MODULE_0___namespace = /*#__PURE__*/__webpack_require__.t(
-      /*! ../../../balvachan-child-attendance.json */
-      "FCQU", 1);
-      /* harmony import */
-
-
-      var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
       /*! @angular/core */
       "fXoL");
       /* harmony import */
 
 
-      var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
       /*! @angular/router */
       "tyNb");
       /* harmony import */
 
 
-      var _services_server_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+      var _services_server_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
       /*! ../_services/server.service */
       "NjuS");
       /* harmony import */
 
 
-      var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+      var _angular_common__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/common */
       "ofXK");
       /* harmony import */
 
 
-      var _page_page_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+      var _page_page_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! ../page/page.component */
       "No3D");
 
       function AttendanceComponent_img_5_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "img", 15);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "img", 15);
         }
       }
 
       function AttendanceComponent_img_6_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](0, "img", 16);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "img", 16);
         }
       }
 
       function AttendanceComponent_div_11_Template(rf, ctx) {
         if (rf & 1) {
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 17);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 17);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "app-page", 18);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](1, "app-page", 18);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         }
 
         if (rf & 2) {
           var page_r3 = ctx.$implicit;
 
-          var ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+          var ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("pageData", page_r3)("formData", ctx_r2.form_data);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("pageData", page_r3)("formData", ctx_r2.form_data);
         }
       }
 
@@ -2393,16 +2378,15 @@
         _createClass(AttendanceComponent, [{
           key: "ngOnInit",
           value: function ngOnInit() {
-            if (this.state == 'Staying in Touch - Balvachan') {
-              if (this.form_id == 5) {
-                this.data = JSON.parse(JSON.stringify(_balvachan_child_attendance_json__WEBPACK_IMPORTED_MODULE_0__));
-              }
-            } else if (this.state == 'Staying in Touch - ECE') {
-              if (this.form_id == 5) {
-                this.data = JSON.parse(JSON.stringify(_balvachan_child_attendance_json__WEBPACK_IMPORTED_MODULE_0__));
-              }
-            }
-
+            // if(this.state=='Staying in Touch - Balvachan'){
+            //   if(this.form_id==5){
+            //     this.data = JSON.parse(JSON.stringify(balvachanAttendance['default']))
+            //   }
+            // }else if(this.state=='Staying in Touch - ECE'){
+            //   if(this.form_id==5){
+            //     this.data = JSON.parse(JSON.stringify(balvachanAttendance['default']))
+            //   }
+            // }
             this.sendData();
           }
         }, {
@@ -2452,10 +2436,10 @@
       }();
 
       AttendanceComponent.ɵfac = function AttendanceComponent_Factory(t) {
-        return new (t || AttendanceComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_server_service__WEBPACK_IMPORTED_MODULE_3__["ServerService"]));
+        return new (t || AttendanceComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_server_service__WEBPACK_IMPORTED_MODULE_2__["ServerService"]));
       };
 
-      AttendanceComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({
+      AttendanceComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({
         type: AttendanceComponent,
         selectors: [["app-attendance"]],
         decls: 19,
@@ -2463,88 +2447,88 @@
         consts: [["id", "wrapper"], [1, "navbar-custom"], [1, ""], ["href", "index-2.html", 1, "logo"], [1, "logo-lg"], ["src", "assets/images/pratham-logo.svg", "alt", "", "height", "54", 4, "ngIf"], ["src", "assets/images/image2.jpeg", "alt", "", "height", "54", 4, "ngIf"], [1, "content", "mt-5", "mb-5"], [1, "container-fluid"], [1, "row"], [1, "col-12"], ["class", "page-title-box", 4, "ngFor", "ngForOf"], [1, "footer", 2, "left", "0px"], [1, "col-md-6"], ["href", "https://www.pratham.org/", 1, "footer_link"], ["src", "assets/images/pratham-logo.svg", "alt", "", "height", "54"], ["src", "assets/images/image2.jpeg", "alt", "", "height", "54"], [1, "page-title-box"], [3, "pageData", "formData"]],
         template: function AttendanceComponent_Template(rf, ctx) {
           if (rf & 1) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 1);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 1);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "div", 2);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 2);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "a", 3);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "a", 3);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "span", 4);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "span", 4);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](5, AttendanceComponent_img_5_Template, 1, 0, "img", 5);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, AttendanceComponent_img_5_Template, 1, 0, "img", 5);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](6, AttendanceComponent_img_6_Template, 1, 0, "img", 6);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, AttendanceComponent_img_6_Template, 1, 0, "img", 6);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "div", 7);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 7);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "div", 8);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div", 8);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "div", 9);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 9);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "div", 10);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "div", 10);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](11, AttendanceComponent_div_11_Template, 2, 2, "div", 11);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, AttendanceComponent_div_11_Template, 2, 2, "div", 11);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](12, "footer", 12);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "footer", 12);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](13, "div", 8);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "div", 8);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](14, "div", 9);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "div", 9);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](15, "div", 13);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](15, "div", 13);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](16, " 2020 \xA9 ");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](16, " 2020 \xA9 ");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](17, "a", 14);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](17, "a", 14);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](18, "pratham.org");
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](18, "pratham.org");
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
           }
 
           if (rf & 2) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx.program_id != 108);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.program_id != 108);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx.program_id == 108);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.program_id == 108);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](5);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
 
-            _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx.data);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.data);
           }
         },
-        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_4__["NgForOf"], _page_page_component__WEBPACK_IMPORTED_MODULE_5__["PageComponent"]],
+        directives: [_angular_common__WEBPACK_IMPORTED_MODULE_3__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_3__["NgForOf"], _page_page_component__WEBPACK_IMPORTED_MODULE_4__["PageComponent"]],
         styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhdHRlbmRhbmNlLmNvbXBvbmVudC5jc3MifQ== */"]
       });
       /***/
@@ -4628,7 +4612,7 @@
             //   this.servername = 'https://pc.prathamapps.com/index.php/Data_entry_portal/user_login';
             // else if(project == 2)
             //this.servername = 'https://tarlinsights.org/impact/api/user/login/';
-            this.servername = 'http://127.0.0.1:8000/lc_login/login/';
+            this.servername = 'http://15.206.158.219/lc_login/login/';
             return new Promise(function (resolve, reject) {
               var body = new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpParams"]();
               body = body.append('lc_code', email);
@@ -4834,7 +4818,10 @@
             console.log(data);
 
             if (form_id == 3) {
-              url += "?user_id=" + data;
+              //url += "?user_id="+data;
+              url += +data + '/';
+            } else if (form_id == 2 || form_id == 4 || form_id == 5) {
+              url += "?user=" + data; //url += +data+'/';
             } else {
               //url += "/"+data+'/';
               url += '/';
@@ -5629,8 +5616,31 @@
               password: ['', _angular_forms__WEBPACK_IMPORTED_MODULE_0__["Validators"].required]
             }); // get return url from route parameters or default to '/'
 
-            this.returnUrl = '/data-entry/1/1';
+            this.returnUrl = '/data-entry/1/3'; //this.byPassLogin()
+
             $(".selectpicker").selectpicker('refresh');
+          }
+        }, {
+          key: "byPassLogin",
+          value: function byPassLogin() {
+            localStorage.setItem('user_id', '1');
+            localStorage.setItem('user', '1');
+            localStorage.setItem('block_name', 'test');
+            localStorage.setItem('district_name', 'test');
+            localStorage.setItem('state_name', 'test');
+            localStorage.setItem('name', 'Vikas');
+            localStorage.setItem('lc_name', 'Test LC');
+            localStorage.setItem('lc_code', 'LC-00000');
+            localStorage.setItem('pngo', 'Test');
+            localStorage.setItem('teacher_name', 'Test TE');
+            localStorage.setItem('teacher_code', 'TE-00000');
+            localStorage.setItem('donor_name', 'Test');
+            localStorage.setItem('supervisor_name', 'Test');
+            localStorage.setItem('is_tracker', '0');
+            localStorage.setItem('history', '1');
+            localStorage.setItem('project', '2');
+            localStorage.setItem('lang', 'en');
+            this.router.navigate([this.returnUrl]);
           } // convenience getter for easy access to form fields
 
         }, {
@@ -5651,15 +5661,7 @@
 
             this.loading = true;
             this.ServerService.login(this.f.email.value, this.f.password.value, 2).then(function (data) {
-              console.log(data['data'].user_id); // if (data[0]['is_active'] != 1) {
-              //   Swal.fire({
-              //     icon: 'error',
-              //     title: 'Oops...',
-              //     text: 'Incorrect User Name or password!'
-              //   })
-              // } else {
-              //const program = JSON.stringify(data[0]['program']);
-
+              console.log(data['data'].user_id);
               localStorage.setItem('user_id', data['data'].user_id);
               localStorage.setItem('user', data['data'].user_id);
               localStorage.setItem('block_name', data['data'].block_name);
@@ -5674,13 +5676,11 @@
               localStorage.setItem('donor_name', data['data'].donor_name);
               localStorage.setItem('supervisor_name', data['data'].supervisor_name);
               localStorage.setItem('is_tracker', '0');
-              localStorage.setItem('history', '1'); //localStorage.setItem('Program', program);
-
+              localStorage.setItem('history', '1');
               localStorage.setItem('project', '2');
               localStorage.setItem('lang', 'en');
 
-              _this44.router.navigate([_this44.returnUrl]); //}
-
+              _this44.router.navigate([_this44.returnUrl]);
             })["catch"](function (err) {
               console.log(err);
               _this44.error = err;
@@ -6601,7 +6601,7 @@
             this.unitData['user'] = localStorage.getItem('user_id');
             console.log(this.unitData);
             setTimeout(function () {
-              console.log(_this46.sectionData.childrens);
+              console.log(_this46.sectionData.childrens); // form builder by json
 
               _this46.sectionData.childrens.forEach(function (element) {
                 if (element.element_type == "ElementText" || element.element_type == "ElementHidden") {
@@ -6764,7 +6764,8 @@
               // $('#110').attr('disabled','disabled');
 
             }, 1500);
-          }
+          } // table to form data 
+
         }, {
           key: "ngOnChanges",
           value: function ngOnChanges(changes) {
@@ -7000,66 +7001,42 @@
             var operators = row.dependent_operator;
             var operators_result = row.dependent_result; //console.log(operators_result);
 
-            if (condition == "less than equal") {
-              var total = $('#' + operators_result).val(); //console.log(total);
+            if (row.operation == 'sum') {
+              var dependant = row.operator;
 
-              if (operators != undefined) {
-                var otherTotal = 0;
-                var dependentID = operators.split(',');
+              if (dependant != undefined) {
+                var otherTotal = 0.0;
+                var dependentID = dependant.split(',');
                 dependentID.forEach(function (ele) {
-                  var value = $('#' + ele).val(); //console.log(value, ele);
+                  var value = $('#' + ele).val();
 
                   if (value != '' && !isNaN(value)) {
                     otherTotal += parseFloat(value);
                   }
                 });
-
-                if (otherTotal > total) {
-                  this.errorToastr("Allocation Mismatch. Total should be " + total);
-                  this.errorMessage = "Allocation Mismatch. Total should be " + total;
-                  this.errorHighlight(dependentID[0]);
-                  dependentID.forEach(function (ele) {
-                    _this49.errorHighlight(ele);
-                  });
-                  this.error = true; //$('#'+dependentID[0]).scrollintoview({ duration: 1000});
-
-                  setTimeout(function () {
-                    $('#' + dependentID[0]).focus();
-                  });
-                }
+                $('#' + row.operator_result).val(otherTotal);
               }
-            } else if (condition == "equal") {
-              //console.log(total);
-              var _total = 0;
+            }
+
+            if (condition == "less than equal") {
+              var total = $('#' + operators_result).val(); //console.log(total);
 
               if (operators != undefined) {
                 var _otherTotal2 = 0;
 
-                var _dependentID2 = operators.split(','); //console.log(dependentID);
-
-
-                if (operators.split(',')[0] == 52) {
-                  //this.total_lang = localStorage.getItem('lang_total_id');
-                  _total = $('#' + localStorage.getItem('lang_total_id')).val();
-                } else if (operators.split(',')[0] == 65) {
-                  //this.total_lang = localStorage.getItem('math_total_id');
-                  _total = $('#' + localStorage.getItem('math_total_id')).val();
-                }
+                var _dependentID2 = operators.split(',');
 
                 _dependentID2.forEach(function (ele) {
-                  var value = $('#' + ele).val(); //console.log($('#'+ele).val());
+                  var value = $('#' + ele).val(); //console.log(value, ele);
 
                   if (value != '' && !isNaN(value)) {
                     _otherTotal2 += parseFloat(value);
                   }
-                }); //console.log(otherTotal);
+                });
 
-
-                if (_otherTotal2 != _total) {
-                  this.errorToastr("Allocation Mismatch. Total should be " + _total);
-                  this.errorMessage = "Allocation Mismatch. Total should be " + _total; //console.log(dependentID[0]);
-                  //this.error = true;
-
+                if (_otherTotal2 > total) {
+                  this.errorToastr("Allocation Mismatch. Total should be " + total);
+                  this.errorMessage = "Allocation Mismatch. Total should be " + total;
                   this.errorHighlight(_dependentID2[0]);
 
                   _dependentID2.forEach(function (ele) {
@@ -7070,6 +7047,51 @@
 
                   setTimeout(function () {
                     $('#' + _dependentID2[0]).focus();
+                  });
+                }
+              }
+            } else if (condition == "equal") {
+              //console.log(total);
+              var _total = 0;
+
+              if (operators != undefined) {
+                var _otherTotal3 = 0;
+
+                var _dependentID3 = operators.split(','); //console.log(dependentID);
+
+
+                if (operators.split(',')[0] == 52) {
+                  //this.total_lang = localStorage.getItem('lang_total_id');
+                  _total = $('#' + localStorage.getItem('lang_total_id')).val();
+                } else if (operators.split(',')[0] == 65) {
+                  //this.total_lang = localStorage.getItem('math_total_id');
+                  _total = $('#' + localStorage.getItem('math_total_id')).val();
+                }
+
+                _dependentID3.forEach(function (ele) {
+                  var value = $('#' + ele).val(); //console.log($('#'+ele).val());
+
+                  if (value != '' && !isNaN(value)) {
+                    _otherTotal3 += parseFloat(value);
+                  }
+                }); //console.log(otherTotal);
+
+
+                if (_otherTotal3 != _total) {
+                  this.errorToastr("Allocation Mismatch. Total should be " + _total);
+                  this.errorMessage = "Allocation Mismatch. Total should be " + _total; //console.log(dependentID[0]);
+                  //this.error = true;
+
+                  this.errorHighlight(_dependentID3[0]);
+
+                  _dependentID3.forEach(function (ele) {
+                    _this49.errorHighlight(ele);
+                  });
+
+                  this.error = true; //$('#'+dependentID[0]).scrollintoview({ duration: 1000});
+
+                  setTimeout(function () {
+                    $('#' + _dependentID3[0]).focus();
                   });
                 }
               }
@@ -7132,7 +7154,7 @@
           value: function finalSubmitData(url, parameters) {
             var _this50 = this;
 
-            //console.log(parameters.action);
+            console.log(parameters.action);
             this.error = false;
             this.sectionData.childrens.forEach(function (element) {
               if (_this50.error == false) {
@@ -7163,7 +7185,9 @@
                   this.updateId = localStorage.getItem('user_id');
                   localStorage.setItem('supervisor_name', this.resultData['supervisor_name']);
                 } else if (this.form_id == 4) {
-                  this.updateId = localStorage.getItem('user_id'); //localStorage.setItem('supervisor_name', this.resultData['supervisor_name']); 
+                  this.updateId = localStorage.getItem('qta_id');
+                } else if (this.form_id == 5) {
+                  this.updateId = localStorage.getItem('qca_id');
                 }
               } else {
                 this.updateId = '';
@@ -7206,34 +7230,31 @@
             if (element.element_type == "ElementText" || element.element_type == "ElementDate" || element.element_type == "ElementDateRange" || element.element_type == "ElementHidden" || element.element_type == "ElementDropDown") {
               if (element.element_type == "ElementDropDown") {
                 if ($('#parent_' + element.element_id).parent().attr('hidden')) {} else {
-                  console.log($('#' + element.element_id).val()); // let el_val_f_status = $('#25').val();
+                  //console.log($('#'+element.element_id).val());
+                  // let el_val_f_status = $('#25').val();
                   // if((el_val_f_status==3) || (el_val_f_status==1)){
                   //   $('#252').attr('is_required','false');
                   //   $('#253').attr('is_required','false');
                   //   $('#254').attr('is_required','false');
                   //   $('#255').attr('is_required','false');
                   // }
-
                   if (this.error == false) {
                     if (element.is_required == 'true') {
-                      console.log(element);
-                      var el_val_f_status = $('#25').val();
-
-                      if (el_val_f_status == 3 || el_val_f_status == 1) {
-                        $('#252').attr('is_required', 'false');
-                        $('#253').attr('is_required', 'false');
-                        $('#254').attr('is_required', 'false');
-                        $('#255').attr('is_required', 'false');
-                      }
-
-                      if ($('#252').val() == 0 || $('#252').val() == 2) {
-                        $('#27').attr('is_required', 'false');
-                        $('#27').attr('disabled', 'disabled');
-                      } else {
-                        //$('#27').attr('is_required','true');
-                        $('#27').removeAttr('disabled');
-                      }
-
+                      //console.log(element);
+                      // let el_val_f_status = $('#25').val();
+                      // if((el_val_f_status==3) || (el_val_f_status==1)){    
+                      //   $('#252').attr('is_required','false');
+                      //   $('#253').attr('is_required','false');
+                      //   $('#254').attr('is_required','false');
+                      //   $('#255').attr('is_required','false');
+                      // }
+                      // if(($('#252').val()==0) || ($('#252').val()==2)){
+                      //   $('#27').attr('is_required','false');
+                      //   $('#27').attr('disabled','disabled');
+                      // }else{
+                      //   //$('#27').attr('is_required','true');
+                      //   $('#27').removeAttr('disabled');
+                      // }
                       this.validateBlankField(element);
                     }
                   }
@@ -7252,15 +7273,13 @@
 
                 if (element.is_required == 'true') {
                   this.validateBlankField(element);
-                }
-
-                var _el_val_f_status = $('#25').val();
-
-                if (_el_val_f_status == 3 || $('#108').val() == 3) {
-                  //element.is_required='false';
-                  $('#109').attr('is_required', 'false');
-                  $('#110').attr('is_required', 'false');
-                } // if($('#311').val()!=1){
+                } // let el_val_f_status = $('#25').val();
+                //   if((el_val_f_status==3) || ($('#108').val()==3)){
+                //     //element.is_required='false';
+                //     $('#109').attr('is_required', 'false');
+                //     $('#110').attr('is_required', 'false');
+                //   }
+                // if($('#311').val()!=1){
                 //   $('#32').attr('is_required','false');
                 //   $('#32').attr('disabled','disabled');
                 //   $('#33').attr('is_required','false');
@@ -7300,172 +7319,174 @@
                 //   $('#50').attr('is_required','false');
                 //   $('#50').attr('disabled','disabled');
                 // }
-                else if (element.input_type == 'number' && element.is_required == 'true') {
-                    var el_val = parseInt($('#' + element.element_id).val());
-                    console.log(el_val);
 
-                    if (isNaN(el_val)) {
-                      //this.error = true;
-                      el_val = -1;
-                    }
 
-                    if ((element.min_val != '' || element.min_val == '0') && el_val < element.min_val || element.max_val != '' && el_val > element.max_val) {
-                      this.errorHighlight(element.element_id);
-                      this.errorToastr(element.elementLabel['en'] + " is between " + element.min_val + " to" + element.max_val);
-                      this.errorMessage = element.elementLabel['en'] + " is between " + element.min_val + " to" + element.max_val; //alert(element.elementLabel['en']+" is between "+ element.min_val+" to"+element.max_val);
+                if (element.input_type == 'number' && element.is_required == 'true') {
+                  var el_val = parseInt($('#' + element.element_id).val());
+                  console.log(el_val);
 
-                      this.error = true;
-                    }
+                  if (isNaN(el_val)) {
+                    //this.error = true;
+                    el_val = -1;
+                  }
 
-                    if (this.error == false) {
-                      this.resultData[element['database_param']] = $('#' + element.element_id).val(); //element.element_value
-                    }
-                  } else {
-                    if (this.error == false) {
-                      // let el_val_foundation = $('#26').val();
-                      // let el_val_lang = $('#27').val();
-                      // let el_val_math = $('#28').val();
-                      // let el_val_lang_1_up = $('#32').val();
-                      // let el_val_lang_2_up = $('#33').val();
-                      // let el_val_lang_3_up = $('#34').val();
-                      // let el_val_lang_1_lw = $('#37').val();
-                      // let el_val_lang_2_lw = $('#38').val();
-                      // let el_val_lang_3_lw = $('#39').val();
-                      // let el_val_m_1_up = $('#43').val();
-                      // let el_val_m_2_up = $('#44').val();
-                      // let el_val_m_3_up = $('#45').val();
-                      // let el_val_m_1_lw = $('#48').val();
-                      // let el_val_m_2_lw = $('#49').val();
-                      // let el_val_m_3_lw = $('#50').val();
-                      // if(($('#21').val()==1)){
-                      //   console.log("std 1 child");
-                      //   $('#27').attr('is_required','false');
-                      //   $('#28').attr('is_required','false');
-                      //   $('#29').attr('is_required','false');
-                      //   $('#30').attr('is_required','false');
-                      // }else{
-                      //   console.log("Not std 1 child");
-                      //   if((element.element_id=='27') && (el_val_foundation>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='28') && (el_val_foundation>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='29') && (el_val_foundation>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='30') && (el_val_foundation>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='32') && (el_val_lang>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='37') && (el_val_lang<25) && (el_val_lang>0)  && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='33') && (el_val_lang_1_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='34') && (el_val_lang_2_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='35') && (el_val_lang_3_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='37') && (el_val_lang_1_lw<25) && (el_val_lang_1_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='38') && (el_val_lang_2_lw<25) && (el_val_lang_2_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='39') && (el_val_lang_3_lw<25) && (el_val_lang_3_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='42') && (el_val_math>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='47') && (el_val_math<25) && (el_val_math>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='43') && (el_val_m_1_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='44') && (el_val_m_2_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='45') && (el_val_m_3_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='48') && (el_val_m_1_lw<25) && (el_val_m_1_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='49') && (el_val_m_2_lw<25) && (el_val_m_2_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      //   if((element.element_id=='50') && (el_val_m_3_lw<25) && (el_val_m_3_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
-                      //     element.is_required='true';
-                      //   }
-                      // }
-                      // if($('#21').val()==5){
-                      //   if($('#311').val()==0){
-                      //     if(element.element_id=='32'){
-                      //       element.is_required='false';
-                      //     }
-                      //     if(element.element_id=='33'){
-                      //       element.is_required='false';
-                      //     }
-                      //     if(element.element_id=='34'){
-                      //       element.is_required='false';
-                      //     }
-                      //     if(element.element_id=='35'){
-                      //       element.is_required='false';
-                      //     }
-                      //   }
-                      //   if($('#411').val()==0){
-                      //     if(element.element_id=='42'){
-                      //       element.is_required='false';
-                      //     }
-                      //     if(element.element_id=='43'){
-                      //       element.is_required='false';
-                      //     }
-                      //     if(element.element_id=='44'){
-                      //       element.is_required='false';
-                      //     }
-                      //     if(element.element_id=='45'){
-                      //       element.is_required='false';
-                      //     }
-                      //   }
-                      // }
-                      // if($('#1081').val()==1){
-                      //   if(element.element_id=='109'){
-                      //     element.is_required='true';
-                      //   }
-                      //   if(element.element_id=='110'){
-                      //     element.is_required='true';
-                      //   }
-                      // }else{
-                      //   if(element.element_id=='109'){
-                      //     element.is_required='false';
-                      //   }
-                      //   if(element.element_id=='110'){
-                      //     element.is_required='false';
-                      //   }
-                      // }
-                      if (element.is_required == 'true') {
-                        this.validateBlankField(element);
-                      }
-                    }
+                  if ((element.min_val != '' || element.min_val == '0') && el_val < element.min_val || element.max_val != '' && el_val > element.max_val) {
+                    this.errorHighlight(element.element_id);
+                    this.errorToastr(element.elementLabel['en'] + " is between " + element.min_val + " to" + element.max_val);
+                    this.errorMessage = element.elementLabel['en'] + " is between " + element.min_val + " to" + element.max_val; //alert(element.elementLabel['en']+" is between "+ element.min_val+" to"+element.max_val);
 
-                    if (this.error == false) {
-                      this.validateCondition(element);
-                    }
+                    this.error = true;
+                  }
 
-                    if (this.error == false) {
-                      //this.resultData[element['database_param']] = element.element_value
-                      console.log(this.resultData);
-                      this.resultData[element['database_param']] = $('#' + element.element_id).val();
+                  if (this.error == false) {
+                    this.resultData[element['database_param']] = $('#' + element.element_id).val(); //element.element_value
+                  }
+                } else {
+                  if (this.error == false) {
+                    // let el_val_foundation = $('#26').val();
+                    // let el_val_lang = $('#27').val();
+                    // let el_val_math = $('#28').val();
+                    // let el_val_lang_1_up = $('#32').val();
+                    // let el_val_lang_2_up = $('#33').val();
+                    // let el_val_lang_3_up = $('#34').val();
+                    // let el_val_lang_1_lw = $('#37').val();
+                    // let el_val_lang_2_lw = $('#38').val();
+                    // let el_val_lang_3_lw = $('#39').val();
+                    // let el_val_m_1_up = $('#43').val();
+                    // let el_val_m_2_up = $('#44').val();
+                    // let el_val_m_3_up = $('#45').val();
+                    // let el_val_m_1_lw = $('#48').val();
+                    // let el_val_m_2_lw = $('#49').val();
+                    // let el_val_m_3_lw = $('#50').val();
+                    // if(($('#21').val()==1)){
+                    //   console.log("std 1 child");
+                    //   $('#27').attr('is_required','false');
+                    //   $('#28').attr('is_required','false');
+                    //   $('#29').attr('is_required','false');
+                    //   $('#30').attr('is_required','false');
+                    // }else{
+                    //   console.log("Not std 1 child");
+                    //   if((element.element_id=='27') && (el_val_foundation>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='28') && (el_val_foundation>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='29') && (el_val_foundation>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='30') && (el_val_foundation>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='32') && (el_val_lang>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='37') && (el_val_lang<25) && (el_val_lang>0)  && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='33') && (el_val_lang_1_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='34') && (el_val_lang_2_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='35') && (el_val_lang_3_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='37') && (el_val_lang_1_lw<25) && (el_val_lang_1_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='38') && (el_val_lang_2_lw<25) && (el_val_lang_2_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='39') && (el_val_lang_3_lw<25) && (el_val_lang_3_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='42') && (el_val_math>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='47') && (el_val_math<25) && (el_val_math>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='43') && (el_val_m_1_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='44') && (el_val_m_2_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='45') && (el_val_m_3_up>35) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='48') && (el_val_m_1_lw<25) && (el_val_m_1_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='49') && (el_val_m_2_lw<25) && (el_val_m_2_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    //   if((element.element_id=='50') && (el_val_m_3_lw<25) && (el_val_m_3_lw>0) && ($('#'+element.element_id).val()=="" || $('#'+element.element_id).val()==null)){
+                    //     element.is_required='true';
+                    //   }
+                    // }
+                    // if($('#21').val()==5){
+                    //   if($('#311').val()==0){
+                    //     if(element.element_id=='32'){
+                    //       element.is_required='false';
+                    //     }
+                    //     if(element.element_id=='33'){
+                    //       element.is_required='false';
+                    //     }
+                    //     if(element.element_id=='34'){
+                    //       element.is_required='false';
+                    //     }
+                    //     if(element.element_id=='35'){
+                    //       element.is_required='false';
+                    //     }
+                    //   }
+                    //   if($('#411').val()==0){
+                    //     if(element.element_id=='42'){
+                    //       element.is_required='false';
+                    //     }
+                    //     if(element.element_id=='43'){
+                    //       element.is_required='false';
+                    //     }
+                    //     if(element.element_id=='44'){
+                    //       element.is_required='false';
+                    //     }
+                    //     if(element.element_id=='45'){
+                    //       element.is_required='false';
+                    //     }
+                    //   }
+                    // }
+                    // if($('#1081').val()==1){
+                    //   if(element.element_id=='109'){
+                    //     element.is_required='true';
+                    //   }
+                    //   if(element.element_id=='110'){
+                    //     element.is_required='true';
+                    //   }
+                    // }else{
+                    //   if(element.element_id=='109'){
+                    //     element.is_required='false';
+                    //   }
+                    //   if(element.element_id=='110'){
+                    //     element.is_required='false';
+                    //   }
+                    // }
+                    if (element.is_required == 'true') {
+                      this.validateBlankField(element);
                     }
                   }
+
+                  if (this.error == false) {
+                    this.validateCondition(element);
+                  }
+
+                  if (this.error == false) {
+                    //this.resultData[element['database_param']] = element.element_value
+                    console.log(this.resultData);
+                    this.resultData[element['database_param']] = $('#' + element.element_id).val();
+                  }
+                }
               } // else if(element.element_type=="ElementDropDown"){
               //   if(this.error==false){
               //     if(element.is_required=='true'){
@@ -13653,7 +13674,7 @@
 
           _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate"]("id", ctx_r0.elementData.element_id);
 
-          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("maxlength", ctx_r0.elementData.textLength)("max", ctx_r0.elementData.max_val)("min", ctx_r0.elementData.min_val)("step", ctx_r0.elementData.step)("required", ctx_r0.elementData.is_required);
+          _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵattribute"]("minlength", ctx_r0.elementData.minLength)("maxlength", ctx_r0.elementData.textLength)("max", ctx_r0.elementData.max_val)("min", ctx_r0.elementData.min_val)("step", ctx_r0.elementData.step)("required", ctx_r0.elementData.is_required);
         }
       }
 
@@ -13900,6 +13921,7 @@
           key: "onTextBoxInputData",
           value: function onTextBoxInputData(event) {
             this.elementData.element_value = event.target.value;
+            console.log(this.elementData);
             this.action.emit(this.elementData);
           }
         }, {
@@ -13951,333 +13973,304 @@
             //   $('#35').attr('is_required','false');
             //   $('#35').attr('disabled','disabled');
             // }
+            //     if(($('#27').val()<36) && ($('#27').val()>24)){
+            //       localStorage.setItem('lang_total_id','27');
+            //     }
+            //     if(($('#27').val()>35)){ 
+            //       $('#32').attr('is_required','true');
+            //       $('#32').removeAttr('disabled');
+            //       if(($('#32').val()<36) && ($('#32').val()>24)){
+            //         localStorage.setItem('lang_total_id','32');
+            //       }else if(($('#32').val()<25)){
+            //         localStorage.setItem('lang_total_id','27');
+            //       }else{
+            //         localStorage.setItem('lang_total_id','33');
+            //       }
+            //     }else{
+            //       $('#32').attr('is_required','false');
+            //       $('#32').attr('disabled','disabled');
+            //     }
+            //     if($('#21').val()==1){
+            //       console.log("class check");
+            //       if($('#26').val()>36){
+            //         console.log("f val chk  > 35");
+            //         $('#32').attr('is_required','true');
+            //         $('#32').removeAttr('disabled');
+            //       }
+            //     }
+            //     if($('#32').val()>35){
+            //       $('#33').attr('is_required','true');
+            //       $('#33').removeAttr('disabled');
+            //       if(($('#33').val()<36) && ($('#33').val()>24)){
+            //         localStorage.setItem('lang_total_id','33');
+            //       }else if(($('#33').val()<25)){
+            //         localStorage.setItem('lang_total_id','32');
+            //       }else{
+            //         localStorage.setItem('lang_total_id','34');
+            //       }
+            //       //localStorage.setItem('lang_total_id','33');
+            //     }else{
+            //       $('#33').attr('is_required','false');
+            //       $('#33').attr('disabled','disabled');
+            //     }
+            //     if($('#33').val()>35){
+            //       $('#34').attr('is_required','true');
+            //       $('#34').removeAttr('disabled');
+            //       if(($('#34').val()<36) && ($('#34').val()>24)){
+            //         localStorage.setItem('lang_total_id','34');
+            //       }else if(($('#34').val()<25)){
+            //         localStorage.setItem('lang_total_id','33');
+            //       }else{
+            //         localStorage.setItem('lang_total_id','35');
+            //       }
+            //       //localStorage.setItem('lang_total_id','34');
+            //     }else{
+            //       $('#34').attr('is_required','false');
+            //       $('#34').attr('disabled','disabled');
+            //     }
+            //     if($('#34').val()>35){
+            //       $('#35').attr('is_required','true');
+            //       $('#35').removeAttr('disabled');
+            //       if(($('#35').val()<36) && ($('#35').val()>24)){
+            //         localStorage.setItem('lang_total_id','35');
+            //       }else if(($('#35').val()<25)){
+            //         localStorage.setItem('lang_total_id','34');
+            //       }else{
+            //         localStorage.setItem('lang_total_id','35');
+            //       }
+            //       //localStorage.setItem('lang_total_id','35');
+            //     }else{
+            //       $('#35').attr('is_required','false');
+            //       $('#35').attr('disabled','disabled');
+            //     }
+            // //lang lower grade
+            //     if(($('#27').val()<25) && ($('#27').val()!='')){ 
+            //       $('#37').attr('is_required','true');
+            //       $('#37').removeAttr('disabled');
+            //       if(($('#21').val()==1)){
+            //         $('#37').attr('is_required','false');
+            //         $('#37').attr('disabled','disabled');
+            //       }
+            //       if(($('#37').val()<36) && ($('#37').val()>24)){
+            //         localStorage.setItem('lang_total_id','37');
+            //       }else if(($('#37').val()<25)){
+            //         localStorage.setItem('lang_total_id','38');
+            //       }else{
+            //         localStorage.setItem('lang_total_id','37');
+            //       }
+            //       //localStorage.setItem('lang_total_id','37');
+            //     }else{
+            //       $('#37').attr('is_required','false');
+            //       $('#37').attr('disabled','disabled');
+            //     }
+            //     if(($('#37').val()<25) && ($('#37').val()!='')){ 
+            //       $('#38').attr('is_required','true');
+            //       $('#38').removeAttr('disabled');
+            //       if(($('#38').val()<36) && ($('#38').val()>24)){
+            //         localStorage.setItem('lang_total_id','38');
+            //       }else if(($('#38').val()<25)){
+            //         localStorage.setItem('lang_total_id','39');
+            //       }else{
+            //         localStorage.setItem('lang_total_id','38');
+            //       }
+            //       //localStorage.setItem('lang_total_id','38');
+            //     }else{
+            //       $('#38').attr('is_required','false');
+            //       $('#38').attr('disabled','disabled');
+            //     }
+            //     if(($('#38').val()<25)  && ($('#38').val()!='')){ 
+            //       $('#39').attr('is_required','true');
+            //       $('#39').removeAttr('disabled');
+            //       if(($('#39').val()<36) && ($('#39').val()>24)){
+            //         localStorage.setItem('lang_total_id','39');
+            //       }else if(($('#39').val()<25)){
+            //         localStorage.setItem('lang_total_id','40');
+            //       }else{
+            //         localStorage.setItem('lang_total_id','39');
+            //       }
+            //       //localStorage.setItem('lang_total_id','39');
+            //     }else{
+            //       $('#39').attr('is_required','false');
+            //       $('#39').attr('disabled','disabled');
+            //     }
+            //     if(($('#39').val()<25)  && ($('#39').val()!='')){ 
+            //       $('#40').attr('is_required','true');
+            //       $('#40').removeAttr('disabled');
+            //       if(($('#40').val()<36) && ($('#40').val()>24)){
+            //         localStorage.setItem('lang_total_id','40');
+            //       }else if(($('#40').val()<25)){
+            //         localStorage.setItem('lang_total_id','40');
+            //       }else{
+            //         localStorage.setItem('lang_total_id','40');
+            //       }
+            //       //localStorage.setItem('lang_total_id','40');
+            //     }else{
+            //       $('#40').attr('is_required','false');
+            //       $('#40').attr('disabled','disabled');
+            //     }
+            //     //Math up grade
+            //     if(($('#28').val()<36) && ($('#28').val()>24)){
+            //       localStorage.setItem('math_total_id','28');
+            //     }
+            //     if(($('#28').val()>35)){ 
+            //       $('#42').attr('is_required','true');
+            //       $('#42').removeAttr('disabled');
+            //       if(($('#42').val()<36) && ($('#42').val()>24)){
+            //         localStorage.setItem('math_total_id','42');
+            //       }else if(($('#42').val()<25)){
+            //         localStorage.setItem('math_total_id','28');
+            //       }else{
+            //         localStorage.setItem('math_total_id','43');
+            //       }
+            //       //localStorage.setItem('math_total_id','42');
+            //     }else{
+            //       $('#42').attr('is_required','false');
+            //       $('#42').attr('disabled','disabled');
+            //     }
+            //     if($('#42').val()>35){
+            //       $('#43').attr('is_required','true');
+            //       $('#43').removeAttr('disabled');
+            //       //localStorage.setItem('math_total_id','43');
+            //       if(($('#43').val()<36) && ($('#43').val()>24)){
+            //         localStorage.setItem('math_total_id','43');
+            //       }else if(($('#43').val()<25)){
+            //         localStorage.setItem('math_total_id','42');
+            //       }else{
+            //         localStorage.setItem('math_total_id','44');
+            //       }
+            //     }else{
+            //       $('#43').attr('is_required','false');
+            //       $('#43').attr('disabled','disabled');
+            //     }
+            //     if($('#43').val()>35){
+            //       $('#44').attr('is_required','true');
+            //       $('#44').removeAttr('disabled');
+            //       //localStorage.setItem('math_total_id','44');
+            //       if(($('#44').val()<36) && ($('#44').val()>24)){
+            //         localStorage.setItem('math_total_id','44');
+            //       }else if(($('#44').val()<25)){
+            //         localStorage.setItem('math_total_id','43');
+            //       }else{
+            //         localStorage.setItem('math_total_id','45');
+            //       }
+            //     }else{
+            //       $('#44').attr('is_required','false');
+            //       $('#44').attr('disabled','disabled');
+            //     }
+            //     if($('#44').val()>35){
+            //       $('#45').attr('is_required','true');
+            //       $('#45').removeAttr('disabled');
+            //       //localStorage.setItem('math_total_id','45');
+            //       if(($('#45').val()<36) && ($('#45').val()>24)){
+            //         localStorage.setItem('math_total_id','45');
+            //       }else if(($('#45').val()<25)){
+            //         localStorage.setItem('math_total_id','44');
+            //       }else{
+            //         localStorage.setItem('math_total_id','45');
+            //       }
+            //     }else{
+            //       $('#45').attr('is_required','false');
+            //       $('#45').attr('disabled','disabled');
+            //     }
+            // //Math lower grade
+            //     if(($('#28').val()<25) && ($('#28').val()!='')){ 
+            //       $('#47').attr('is_required','true');
+            //       $('#47').removeAttr('disabled');
+            //       if(($('#21').val()==1)){
+            //         $('#47').attr('is_required','false');
+            //         $('#47').attr('disabled','disabled');
+            //       }
+            //       //localStorage.setItem('math_total_id','47');
+            //       if(($('#47').val()<36) && ($('#47').val()>24)){
+            //         localStorage.setItem('math_total_id','47');
+            //       }else if(($('#47').val()<25)){
+            //         localStorage.setItem('math_total_id','48');
+            //       }else{
+            //         localStorage.setItem('math_total_id','47');
+            //       }
+            //     }else{
+            //       $('#47').attr('is_required','false');
+            //       $('#47').attr('disabled','disabled');
+            //     }
+            //     if (($('#28').val()<25) && ($('#21').val()==1)){
+            //       localStorage.setItem('math_total_id','28');
+            //     }
+            //     if(($('#47').val()<25) && ($('#47').val()!='')){ 
+            //       $('#48').attr('is_required','true');
+            //       $('#48').removeAttr('disabled');
+            //       //localStorage.setItem('math_total_id','48');
+            //       if(($('#48').val()<36) && ($('#48').val()>24)){
+            //         localStorage.setItem('math_total_id','48');
+            //       }else if(($('#48').val()<25)){
+            //         localStorage.setItem('math_total_id','49');
+            //       }else{
+            //         localStorage.setItem('math_total_id','48');
+            //       }
+            //     }else{
+            //       $('#48').attr('is_required','false');
+            //       $('#48').attr('disabled','disabled');
+            //     }
+            //     if(($('#48').val()<25)  && ($('#48').val()!='')){ 
+            //       $('#49').attr('is_required','true');
+            //       $('#49').removeAttr('disabled');
+            //       //localStorage.setItem('math_total_id','49');
+            //       if(($('#49').val()<36) && ($('#49').val()>24)){
+            //         localStorage.setItem('math_total_id','49');
+            //       }else if(($('#49').val()<25)){
+            //         localStorage.setItem('math_total_id','50');
+            //       }else{
+            //         localStorage.setItem('math_total_id','49');
+            //       }
+            //     }else{
+            //       $('#49').attr('is_required','false');
+            //       $('#49').attr('disabled','disabled');
+            //     }
+            //     if(($('#49').val()<25)  && ($('#49').val()!='')){ 
+            //       $('#50').attr('is_required','true');
+            //       $('#50').removeAttr('disabled');
+            //       //localStorage.setItem('math_total_id','50');
+            //       if(($('#50').val()<36) && ($('#50').val()>24)){
+            //         localStorage.setItem('math_total_id','50');
+            //       }else if(($('#50').val()<25)){
+            //         localStorage.setItem('math_total_id','50');
+            //       }else{
+            //         localStorage.setItem('math_total_id','50');
+            //       }
+            //     }else{
+            //       $('#50').attr('is_required','false');
+            //       $('#50').attr('disabled','disabled');
+            //     }
 
-
-            if ($('#27').val() < 36 && $('#27').val() > 24) {
-              localStorage.setItem('lang_total_id', '27');
-            }
-
-            if ($('#27').val() > 35) {
-              $('#32').attr('is_required', 'true');
-              $('#32').removeAttr('disabled');
-
-              if ($('#32').val() < 36 && $('#32').val() > 24) {
-                localStorage.setItem('lang_total_id', '32');
-              } else if ($('#32').val() < 25) {
-                localStorage.setItem('lang_total_id', '27');
-              } else {
-                localStorage.setItem('lang_total_id', '33');
-              }
-            } else {
-              $('#32').attr('is_required', 'false');
-              $('#32').attr('disabled', 'disabled');
-            }
-
-            if ($('#21').val() == 1) {
-              console.log("class check");
-
-              if ($('#26').val() > 36) {
-                console.log("f val chk  > 35");
-                $('#32').attr('is_required', 'true');
-                $('#32').removeAttr('disabled');
-              }
-            }
-
-            if ($('#32').val() > 35) {
-              $('#33').attr('is_required', 'true');
-              $('#33').removeAttr('disabled');
-
-              if ($('#33').val() < 36 && $('#33').val() > 24) {
-                localStorage.setItem('lang_total_id', '33');
-              } else if ($('#33').val() < 25) {
-                localStorage.setItem('lang_total_id', '32');
-              } else {
-                localStorage.setItem('lang_total_id', '34');
-              } //localStorage.setItem('lang_total_id','33');
-
-            } else {
-              $('#33').attr('is_required', 'false');
-              $('#33').attr('disabled', 'disabled');
-            }
-
-            if ($('#33').val() > 35) {
-              $('#34').attr('is_required', 'true');
-              $('#34').removeAttr('disabled');
-
-              if ($('#34').val() < 36 && $('#34').val() > 24) {
-                localStorage.setItem('lang_total_id', '34');
-              } else if ($('#34').val() < 25) {
-                localStorage.setItem('lang_total_id', '33');
-              } else {
-                localStorage.setItem('lang_total_id', '35');
-              } //localStorage.setItem('lang_total_id','34');
-
-            } else {
-              $('#34').attr('is_required', 'false');
-              $('#34').attr('disabled', 'disabled');
-            }
-
-            if ($('#34').val() > 35) {
-              $('#35').attr('is_required', 'true');
-              $('#35').removeAttr('disabled');
-
-              if ($('#35').val() < 36 && $('#35').val() > 24) {
-                localStorage.setItem('lang_total_id', '35');
-              } else if ($('#35').val() < 25) {
-                localStorage.setItem('lang_total_id', '34');
-              } else {
-                localStorage.setItem('lang_total_id', '35');
-              } //localStorage.setItem('lang_total_id','35');
-
-            } else {
-              $('#35').attr('is_required', 'false');
-              $('#35').attr('disabled', 'disabled');
-            } //lang lower grade
-
-
-            if ($('#27').val() < 25 && $('#27').val() != '') {
-              $('#37').attr('is_required', 'true');
-              $('#37').removeAttr('disabled');
-
-              if ($('#21').val() == 1) {
-                $('#37').attr('is_required', 'false');
-                $('#37').attr('disabled', 'disabled');
-              }
-
-              if ($('#37').val() < 36 && $('#37').val() > 24) {
-                localStorage.setItem('lang_total_id', '37');
-              } else if ($('#37').val() < 25) {
-                localStorage.setItem('lang_total_id', '38');
-              } else {
-                localStorage.setItem('lang_total_id', '37');
-              } //localStorage.setItem('lang_total_id','37');
-
-            } else {
-              $('#37').attr('is_required', 'false');
-              $('#37').attr('disabled', 'disabled');
-            }
-
-            if ($('#37').val() < 25 && $('#37').val() != '') {
-              $('#38').attr('is_required', 'true');
-              $('#38').removeAttr('disabled');
-
-              if ($('#38').val() < 36 && $('#38').val() > 24) {
-                localStorage.setItem('lang_total_id', '38');
-              } else if ($('#38').val() < 25) {
-                localStorage.setItem('lang_total_id', '39');
-              } else {
-                localStorage.setItem('lang_total_id', '38');
-              } //localStorage.setItem('lang_total_id','38');
-
-            } else {
-              $('#38').attr('is_required', 'false');
-              $('#38').attr('disabled', 'disabled');
-            }
-
-            if ($('#38').val() < 25 && $('#38').val() != '') {
-              $('#39').attr('is_required', 'true');
-              $('#39').removeAttr('disabled');
-
-              if ($('#39').val() < 36 && $('#39').val() > 24) {
-                localStorage.setItem('lang_total_id', '39');
-              } else if ($('#39').val() < 25) {
-                localStorage.setItem('lang_total_id', '40');
-              } else {
-                localStorage.setItem('lang_total_id', '39');
-              } //localStorage.setItem('lang_total_id','39');
-
-            } else {
-              $('#39').attr('is_required', 'false');
-              $('#39').attr('disabled', 'disabled');
-            }
-
-            if ($('#39').val() < 25 && $('#39').val() != '') {
-              $('#40').attr('is_required', 'true');
-              $('#40').removeAttr('disabled');
-
-              if ($('#40').val() < 36 && $('#40').val() > 24) {
-                localStorage.setItem('lang_total_id', '40');
-              } else if ($('#40').val() < 25) {
-                localStorage.setItem('lang_total_id', '40');
-              } else {
-                localStorage.setItem('lang_total_id', '40');
-              } //localStorage.setItem('lang_total_id','40');
-
-            } else {
-              $('#40').attr('is_required', 'false');
-              $('#40').attr('disabled', 'disabled');
-            } //Math up grade
-
-
-            if ($('#28').val() < 36 && $('#28').val() > 24) {
-              localStorage.setItem('math_total_id', '28');
-            }
-
-            if ($('#28').val() > 35) {
-              $('#42').attr('is_required', 'true');
-              $('#42').removeAttr('disabled');
-
-              if ($('#42').val() < 36 && $('#42').val() > 24) {
-                localStorage.setItem('math_total_id', '42');
-              } else if ($('#42').val() < 25) {
-                localStorage.setItem('math_total_id', '28');
-              } else {
-                localStorage.setItem('math_total_id', '43');
-              } //localStorage.setItem('math_total_id','42');
-
-            } else {
-              $('#42').attr('is_required', 'false');
-              $('#42').attr('disabled', 'disabled');
-            }
-
-            if ($('#42').val() > 35) {
-              $('#43').attr('is_required', 'true');
-              $('#43').removeAttr('disabled'); //localStorage.setItem('math_total_id','43');
-
-              if ($('#43').val() < 36 && $('#43').val() > 24) {
-                localStorage.setItem('math_total_id', '43');
-              } else if ($('#43').val() < 25) {
-                localStorage.setItem('math_total_id', '42');
-              } else {
-                localStorage.setItem('math_total_id', '44');
-              }
-            } else {
-              $('#43').attr('is_required', 'false');
-              $('#43').attr('disabled', 'disabled');
-            }
-
-            if ($('#43').val() > 35) {
-              $('#44').attr('is_required', 'true');
-              $('#44').removeAttr('disabled'); //localStorage.setItem('math_total_id','44');
-
-              if ($('#44').val() < 36 && $('#44').val() > 24) {
-                localStorage.setItem('math_total_id', '44');
-              } else if ($('#44').val() < 25) {
-                localStorage.setItem('math_total_id', '43');
-              } else {
-                localStorage.setItem('math_total_id', '45');
-              }
-            } else {
-              $('#44').attr('is_required', 'false');
-              $('#44').attr('disabled', 'disabled');
-            }
-
-            if ($('#44').val() > 35) {
-              $('#45').attr('is_required', 'true');
-              $('#45').removeAttr('disabled'); //localStorage.setItem('math_total_id','45');
-
-              if ($('#45').val() < 36 && $('#45').val() > 24) {
-                localStorage.setItem('math_total_id', '45');
-              } else if ($('#45').val() < 25) {
-                localStorage.setItem('math_total_id', '44');
-              } else {
-                localStorage.setItem('math_total_id', '45');
-              }
-            } else {
-              $('#45').attr('is_required', 'false');
-              $('#45').attr('disabled', 'disabled');
-            } //Math lower grade
-
-
-            if ($('#28').val() < 25 && $('#28').val() != '') {
-              $('#47').attr('is_required', 'true');
-              $('#47').removeAttr('disabled');
-
-              if ($('#21').val() == 1) {
-                $('#47').attr('is_required', 'false');
-                $('#47').attr('disabled', 'disabled');
-              } //localStorage.setItem('math_total_id','47');
-
-
-              if ($('#47').val() < 36 && $('#47').val() > 24) {
-                localStorage.setItem('math_total_id', '47');
-              } else if ($('#47').val() < 25) {
-                localStorage.setItem('math_total_id', '48');
-              } else {
-                localStorage.setItem('math_total_id', '47');
-              }
-            } else {
-              $('#47').attr('is_required', 'false');
-              $('#47').attr('disabled', 'disabled');
-            }
-
-            if ($('#28').val() < 25 && $('#21').val() == 1) {
-              localStorage.setItem('math_total_id', '28');
-            }
-
-            if ($('#47').val() < 25 && $('#47').val() != '') {
-              $('#48').attr('is_required', 'true');
-              $('#48').removeAttr('disabled'); //localStorage.setItem('math_total_id','48');
-
-              if ($('#48').val() < 36 && $('#48').val() > 24) {
-                localStorage.setItem('math_total_id', '48');
-              } else if ($('#48').val() < 25) {
-                localStorage.setItem('math_total_id', '49');
-              } else {
-                localStorage.setItem('math_total_id', '48');
-              }
-            } else {
-              $('#48').attr('is_required', 'false');
-              $('#48').attr('disabled', 'disabled');
-            }
-
-            if ($('#48').val() < 25 && $('#48').val() != '') {
-              $('#49').attr('is_required', 'true');
-              $('#49').removeAttr('disabled'); //localStorage.setItem('math_total_id','49');
-
-              if ($('#49').val() < 36 && $('#49').val() > 24) {
-                localStorage.setItem('math_total_id', '49');
-              } else if ($('#49').val() < 25) {
-                localStorage.setItem('math_total_id', '50');
-              } else {
-                localStorage.setItem('math_total_id', '49');
-              }
-            } else {
-              $('#49').attr('is_required', 'false');
-              $('#49').attr('disabled', 'disabled');
-            }
-
-            if ($('#49').val() < 25 && $('#49').val() != '') {
-              $('#50').attr('is_required', 'true');
-              $('#50').removeAttr('disabled'); //localStorage.setItem('math_total_id','50');
-
-              if ($('#50').val() < 36 && $('#50').val() > 24) {
-                localStorage.setItem('math_total_id', '50');
-              } else if ($('#50').val() < 25) {
-                localStorage.setItem('math_total_id', '50');
-              } else {
-                localStorage.setItem('math_total_id', '50');
-              }
-            } else {
-              $('#50').attr('is_required', 'false');
-              $('#50').attr('disabled', 'disabled');
-            }
           }
         }, {
           key: "textInput",
           value: function textInput(evt, element) {
-            var el_last_lc_level = $('#22').val();
-
-            if (el_last_lc_level <= 9 && el_last_lc_level != 0) {
-              $('#26').attr('is_required', 'true');
-            } else {
-              $('#26').attr('is_required', 'false');
-            }
-
-            if (el_last_lc_level <= 9 && el_last_lc_level != 0) {
-              $('#30').attr('is_required', 'false');
-            } else {
-              $('#30').attr('is_required', 'true');
-            }
-
-            if ($('#25').val() == 3 || $('#25').val() == 2) {
-              $('#109').attr('is_required', 'false');
-              $('#110').attr('is_required', 'false');
-            }
-
+            // let el_last_lc_level = $('#22').val();
+            // if((el_last_lc_level<=9) && (el_last_lc_level!=0)){
+            //   $('#26').attr('is_required','true');
+            // }else{
+            //   $('#26').attr('is_required','false');
+            // }
+            // if((el_last_lc_level<=9) && (el_last_lc_level!=0)){
+            //   $('#30').attr('is_required','false');
+            // }else{
+            //   $('#30').attr('is_required','true');
+            // }
+            // if(($('#25').val()==3) || ($('#25').val()==2) ){
+            //   $('#109').attr('is_required', 'false');
+            //   $('#110').attr('is_required', 'false');
+            // }
+            // if((element.input_type =='text')){
+            //   let el_val = $('#'+element.element_id).val();
+            //   if((element.textLength!='') && (el_val.length > element.textLength)){
+            //     $('#'+element.element_id).removeClass('form-control-focus').addClass('highlight')
+            //     this.errorToastr(element.elementLabel['en']+" is max "+element.textLength+" digit");
+            //     setTimeout(() => {
+            //       $('.highlight').addClass('form-control-focus').removeClass('highlight')
+            //     }, 2000);
+            //   }
+            // }
             if (element.input_type == 'number') {
-              // if(element.step != undefined && element.hasOwnProperty(element.step)){
-              // }
               var el_val = $('#' + element.element_id).val();
               console.log(element.element_id, el_val);
 
@@ -14310,9 +14303,9 @@
 
 
             if (element.dependant == 'less than equal' || element.dependant == 'less' || element.dependant == 'equal') {
-              var _dependant2 = element.dependent_operator; //console.log(dependant.split(',')[0]);
-              //let total_lang = localStorage.getItem('lang_total_id');
-              //let total =  $('#'+element.dependent_result).val();
+              var _dependant2 = element.dependent_operator;
+              console.log(_dependant2.split(',')[0]);
+              var total_lang = localStorage.getItem('lang_total_id'); //let total =  $('#'+element.dependent_result).val();
 
               if (_dependant2.split(',')[0] == 52) {
                 this.total_lang = localStorage.getItem('lang_total_id');
@@ -14324,22 +14317,22 @@
               var total = $('#' + this.total_lang).val();
 
               if (_dependant2 != undefined) {
-                var _otherTotal3 = 0;
+                var _otherTotal4 = 0;
 
-                var _dependentID3 = _dependant2.split(',');
+                var _dependentID4 = _dependant2.split(',');
 
-                _dependentID3.forEach(function (ele) {
+                _dependentID4.forEach(function (ele) {
                   var value = $('#' + ele).val();
 
                   if (value != '' && !isNaN(value)) {
-                    _otherTotal3 += parseFloat(value);
+                    _otherTotal4 += parseFloat(value);
                   }
                 });
 
-                console.log(_dependentID3, _otherTotal3);
+                console.log(_dependentID4, _otherTotal4);
 
-                if (_otherTotal3 > total) {
-                  console.log(_otherTotal3);
+                if (_otherTotal4 > total) {
+                  console.log(_otherTotal4);
                   var currentVal = $(evt.target).val();
                   currentVal = currentVal / 10;
                   $(evt.target).val(~~currentVal);
@@ -14412,7 +14405,7 @@
         consts: [["class", "form-group mb-3", 4, "ngIf"], ["class", "form-group mb-1", 4, "ngIf"], [1, "form-group", "mb-3"], ["for", "simpleinput", "tabindex", "-1", "appTooltip", "", 1, "text-break", 3, "title"], ["type", "text", 1, "form-control", 3, "id", "keyup", "keypress", "input"], ["type", "text", "placeholder", "DD-MM-YYYY", "data-toggle", "input-mask", "data-mask-format", "00-00-0000", 1, "form-control", "flatpickr-input", 3, "id", "change"], ["type", "text", "placeholder", "DD-MM-YYYY", "data-toggle", "input-mask", "data-mask-format", "00-00-0000", 1, "form-control", "flatpickr-input-range", 3, "id", "change"], ["type", "hidden", 1, "form-control", 3, "id"], [1, "form-group", "mb-1"], ["type", "text", "disabled", "", 1, "form-control", 3, "value", "id", "keypress", "change"]],
         template: function CustomTextBoxComponent_Template(rf, ctx) {
           if (rf & 1) {
-            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, CustomTextBoxComponent_div_0_Template, 4, 8, "div", 0);
+            _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](0, CustomTextBoxComponent_div_0_Template, 4, 9, "div", 0);
 
             _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, CustomTextBoxComponent_div_1_Template, 4, 3, "div", 0);
 
@@ -15729,8 +15722,18 @@
             // console.log(parameters);
 
             this.serverService.fetchTabularData_get(url, this.unitData['user_id'], this.form_id).then(function (response) {
-              console.log(response['results']);
-              _this58.responseData = response['results'];
+              console.log(response);
+
+              if (_this58.form_id == '3') {
+                _this58.responseData[0] = response;
+              } else if (_this58.form_id == '2' || _this58.form_id == '4' || _this58.form_id == '5') {
+                _this58.responseData = response['data']['results'];
+              } else {
+                _this58.responseData = response['results'];
+              }
+
+              console.log(_this58.responseData); //this.responseData = response['results']
+
               $('#data_entry_data').DataTable().destroy();
               setTimeout(function () {
                 $("#data_entry_data").DataTable({
@@ -16373,7 +16376,7 @@
 
     /***/
     function hs2z(module) {
-      module.exports = JSON.parse("[{\"element_type\":\"page\",\"element_data\":{\"element_title\":\"\",\"element_subtitle\":\"\"},\"element_id\":1,\"childrens\":[{\"element_id\":0,\"element_type\":\"section\",\"element_size\":12,\"element_data\":{\"element_title\":\"Teacher Profile \",\"element_subtitle\":\"\"},\"childrens\":[{\"element_id\":6,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":7,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":8,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"block\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"ব্লক\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"elementTooltip\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":9,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC কোড\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"elementTooltip\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC Code\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":10,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC নাম\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"elementTooltip\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC Name\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":17,\"element_type\":\"ElementHidden\",\"element_size\":4,\"database_param\":\"teacher_id\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"ID\",\"hi\":\"ID\",\"mr\":\"ID\",\"gu\":\"ID\",\"bn\":\"ID\",\"as\":\"ID\",\"or\":\"ID\",\"te\":\"ID\",\"kn\":\"ID\",\"ta\":\"ID\",\"ur\":\"ID\",\"pa\":\"ID\"},\"elementTooltip\":{\"en\":\"ID\",\"hi\":\"ID\",\"mr\":\"ID\",\"gu\":\"ID\",\"bn\":\"ID\",\"as\":\"ID\",\"or\":\"ID\",\"te\":\"ID\",\"kn\":\"ID\",\"ta\":\"ID\",\"ur\":\"ID\",\"pa\":\"ID\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":18,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"teacher_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"element_value\":\"CH-\",\"elementLabel\":{\"en\":\"Teacher Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"বাচ্ছার কোড\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"elementTooltip\":{\"en\":\"Child Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"Child Code\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"element_data\":{\"options\":[],\"data_url\":\"\",\"method\":\"get\",\"data_paramters\":{}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":19,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"teacher_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Teacher Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":16,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"qta_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Quaterly Teacher Assessment\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":20,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_qta\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":21,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_qta\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":22,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"eng_qta\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Eng Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":23,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"evs_qta\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"EVS Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":24,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"other_qta\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Other Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":25,\"element_type\":\"ElementDropDown\",\"element_size\":1,\"database_param\":\"leadership\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Leadership\"},\"elementTooltip\":{\"en\":\"Leadership\"},\"element_data\":{\"options\":[{\"option_id\":\"A\",\"option_name\":\"A\"},{\"option_id\":\"B\",\"option_name\":\"B\"},{\"option_id\":\"C\",\"option_name\":\"C\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\"},{\"element_id\":26,\"element_type\":\"ElementDropDown\",\"element_size\":1,\"database_param\":\"collaboration\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Collaboration\"},\"elementTooltip\":{\"en\":\"Collaboration\"},\"element_data\":{\"options\":[{\"option_id\":\"A\",\"option_name\":\"A\"},{\"option_id\":\"B\",\"option_name\":\"B\"},{\"option_id\":\"C\",\"option_name\":\"C\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\"},{\"element_id\":27,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"is_active\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"1\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":28,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"quater\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"2\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":29,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"ay\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"22-23\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":128,\"element_type\":\"ElementButton\",\"element_size\":12,\"database_param\":\"btn_save\",\"is_required\":\"false\",\"is_editable\":\"true\",\"input_type\":\"button\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"elementTooltip\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"element_data\":{\"options\":[],\"submit-url\":\"http://127.0.0.1:8000/qta/\",\"method\":\"post\",\"parameters\":{\"action\":\"insert\"}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null}]},{\"element_id\":\"2\",\"element_type\":\"table\",\"element_size\":12,\"element_data\":{\"element_title\":\"Teacher Profile\",\"element_subtitle\":\"\",\"element_url\":\"http://127.0.0.1:8000/qta\",\"element_parameters\":{\"unit_id\":\"1\"},\"element_header\":[{\"param\":\"qta_id\",\"label\":\"QTA ID\"},{\"param\":\"teacher_code\",\"label\":\"Teacher Code\"},{\"param\":\"teacher_name\",\"label\":\"Teacher Name\"},{\"param\":\"lang_qta\",\"label\":\"Lang\"},{\"param\":\"math_qta\",\"label\":\"Math\"},{\"param\":\"eng_qta\",\"label\":\"Eng\"},{\"param\":\"evs_qta\",\"label\":\"EVS\"},{\"param\":\"other_qta\",\"label\":\"Other\"},{\"param\":\"leadership\",\"label\":\"Leadership\"},{\"param\":\"collaboration\",\"label\":\"Collaboration\"}]}}]}]");
+      module.exports = JSON.parse("[{\"element_type\":\"page\",\"element_data\":{\"element_title\":\"\",\"element_subtitle\":\"\"},\"element_id\":1,\"childrens\":[{\"element_id\":0,\"element_type\":\"section\",\"element_size\":12,\"element_data\":{\"element_title\":\"Teacher Profile \",\"element_subtitle\":\"\"},\"childrens\":[{\"element_id\":6,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":7,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":8,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"block\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"ব্লক\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"elementTooltip\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":9,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC কোড\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"elementTooltip\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC Code\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":10,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC নাম\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"elementTooltip\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC Name\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":11,\"element_type\":\"ElementHidden\",\"element_size\":4,\"database_param\":\"teacher_id\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"ID\",\"hi\":\"ID\",\"mr\":\"ID\",\"gu\":\"ID\",\"bn\":\"ID\",\"as\":\"ID\",\"or\":\"ID\",\"te\":\"ID\",\"kn\":\"ID\",\"ta\":\"ID\",\"ur\":\"ID\",\"pa\":\"ID\"},\"elementTooltip\":{\"en\":\"ID\",\"hi\":\"ID\",\"mr\":\"ID\",\"gu\":\"ID\",\"bn\":\"ID\",\"as\":\"ID\",\"or\":\"ID\",\"te\":\"ID\",\"kn\":\"ID\",\"ta\":\"ID\",\"ur\":\"ID\",\"pa\":\"ID\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":12,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"teacher_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"element_value\":\"CH-\",\"elementLabel\":{\"en\":\"Teacher Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"বাচ্ছার কোড\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"elementTooltip\":{\"en\":\"Child Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"Child Code\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"element_data\":{\"options\":[],\"data_url\":\"\",\"method\":\"get\",\"data_paramters\":{}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":13,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"teacher_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Teacher Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":14,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"teacher_age\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"16\",\"max_val\":\"50\",\"elementLabel\":{\"en\":\"Teacher Age\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":15,\"element_type\":\"ElementDropDown\",\"element_size\":4,\"database_param\":\"teacher_gender\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Teacher Gender\"},\"elementTooltip\":{\"en\":\"Teacher Gender\"},\"element_data\":{\"options\":[{\"option_id\":\"1\",\"option_name\":\"Male\"},{\"option_id\":\"2\",\"option_name\":\"Female\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\"},{\"element_id\":16,\"element_type\":\"ElementDropDown\",\"element_size\":4,\"database_param\":\"teacher_enrollment\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Teacher Enrollment\"},\"elementTooltip\":{\"en\":\"Teacher Enrollment\"},\"element_data\":{\"options\":[{\"option_id\":\"1\",\"option_name\":\"New teacher enrolled in current Quarter\"},{\"option_id\":\"2\",\"option_name\":\"teacher enrolled in previous Quarter\"},{\"option_id\":\"3\",\"option_name\":\"Teacher enrolled before previous Quarter\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\"},{\"element_id\":17,\"element_type\":\"ElementDropDown\",\"element_size\":4,\"database_param\":\"teacher_status\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Teacher Status\"},\"elementTooltip\":{\"en\":\"Teacher Status\"},\"element_data\":{\"options\":[{\"option_id\":\"1\",\"option_name\":\"Left Job\"},{\"option_id\":\"2\",\"option_name\":\"Pursuing\"},{\"option_id\":\"3\",\"option_name\":\"Teacher rejoined\"},{\"option_id\":\"4\",\"option_name\":\"Temporarily Left\"},{\"option_id\":\"5\",\"option_name\":\"Temprarily persuing\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\"},{\"element_id\":18,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"qta_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Quaterly Teacher Assessment\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":19,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"qta_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Language Questions\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":20,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q1\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Lang Q1\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":21,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q2\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Lang Q2\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":22,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q3\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Lang Q3\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":23,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q4\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Lang Q4\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":24,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q5\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Lang Q5\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":25,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_qta\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"25\",\"elementLabel\":{\"en\":\"Lang Total Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"sum\",\"operator\":\"20,21,22,23,24\",\"operator_result\":\"25\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":26,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"qta_math_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Questions\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":27,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q1\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Math Q1\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":28,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q2\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Math Q2\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":29,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q3\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Math Q3\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":30,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q4\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Math Q4\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":31,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q5\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Math Q5\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":32,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q6\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Math Q6\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":33,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q7\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Math Q7\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":34,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q8\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Math Q8\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":35,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_qta\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"25\",\"elementLabel\":{\"en\":\"Math Total Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"sum\",\"operator\":\"27,28,29,30,31,32,33,34\",\"operator_result\":\"35\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":36,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"qta_eng_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"English Questions\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":37,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"eng_q1\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Eng Q1\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":38,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"eng_q2\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Eng Q2\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":39,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"eng_q3\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Eng Q3\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":40,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"eng_q4\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Eng Q4\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":41,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"eng_q5\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Eng Q5\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":42,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"eng_q6\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"Eng Q6\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":43,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"eng_qta\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"25\",\"elementLabel\":{\"en\":\"Eng Total Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"sum\",\"operator\":\"37,38,39,40,41,42\",\"operator_result\":\"43\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":44,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"qta_evs_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"EVS Questions\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":45,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"evs_q1\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"EVS Q1\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":46,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"evs_q2\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"EVS Q2\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":47,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"evs_q3\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"EVS Q3\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":48,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"evs_q4\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"EVS Q4\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":49,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"evs_q5\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"EVS Q5\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":50,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"evs_q6\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"EVS Q6\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":51,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"evs_q7\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"EVS Q7\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":52,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"evs_q8\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"10\",\"elementLabel\":{\"en\":\"EVS Q8\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":53,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"evs_qta\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"25\",\"elementLabel\":{\"en\":\"EVS Total Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"sum\",\"operator\":\"45,46,47,48,49,50,51,52\",\"operator_result\":\"53\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":54,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"overallqta_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Oevrall Score\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":55,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"other_qta\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"100\",\"elementLabel\":{\"en\":\"Oevrall Score\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"sum\",\"operator\":\"25,35,43,53\",\"operator_result\":\"55\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":56,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"is_active\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"1\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":57,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"quater\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"2\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":58,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"ay\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"22-23\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":59,\"element_type\":\"ElementButton\",\"element_size\":12,\"database_param\":\"btn_save\",\"is_required\":\"false\",\"is_editable\":\"true\",\"input_type\":\"button\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"elementTooltip\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"element_data\":{\"options\":[],\"submit-url\":\"http://15.206.158.219/qta/\",\"method\":\"post\",\"parameters\":{\"action\":\"insert\"}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null}]},{\"element_id\":\"2\",\"element_type\":\"table\",\"element_size\":12,\"element_data\":{\"element_title\":\"Teacher Profile\",\"element_subtitle\":\"\",\"element_url\":\"http://15.206.158.219/qta/\",\"element_parameters\":{\"unit_id\":\"1\"},\"element_header\":[{\"param\":\"qta_id\",\"label\":\"QTA ID\"},{\"param\":\"teacher_code\",\"label\":\"Teacher Code\"},{\"param\":\"teacher_name\",\"label\":\"Teacher Name\"},{\"param\":\"lang_qta\",\"label\":\"Lang\"},{\"param\":\"math_qta\",\"label\":\"Math\"},{\"param\":\"eng_qta\",\"label\":\"Eng\"},{\"param\":\"evs_qta\",\"label\":\"EVS\"},{\"param\":\"other_qta\",\"label\":\"OverAll\"}]}}]}]");
       /***/
     },
 
@@ -16654,10 +16657,12 @@
               $('#btn_1').addClass('active');
             } else if (this.form_id == 2) {
               $('#btn_2').addClass('active');
-            }
-
-            if (this.form_id == 3) {
+            } else if (this.form_id == 3) {
               $('#btn_3').addClass('active');
+            } else if (this.form_id == 4) {
+              $('#btn_4').addClass('active');
+            } else if (this.form_id == 5) {
+              $('#btn_5').addClass('active');
             }
           }
         }, {
@@ -16665,6 +16670,7 @@
           value: function sendData() {
             var _this63 = this;
 
+            // single form data fill 
             var parameters = [];
             console.log(this.form_data);
             parameters['lc_code'] = this.form_data['lc_code'];
@@ -18056,7 +18062,7 @@
 
     /***/
     function tGiy(module) {
-      module.exports = JSON.parse("[{\"element_type\":\"page\",\"element_data\":{\"element_title\":\"\",\"element_subtitle\":\"\"},\"element_id\":1,\"childrens\":[{\"element_id\":0,\"element_type\":\"section\",\"element_size\":12,\"element_data\":{\"element_title\":\"Child Profile \",\"element_subtitle\":\"\"},\"childrens\":[{\"element_id\":6,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":7,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":8,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"block\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"ব্লক\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"elementTooltip\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":9,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC কোড\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"elementTooltip\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC Code\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":10,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC নাম\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"elementTooltip\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC Name\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":17,\"element_type\":\"ElementHidden\",\"element_size\":4,\"database_param\":\"child_id\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"ID\",\"hi\":\"ID\",\"mr\":\"ID\",\"gu\":\"ID\",\"bn\":\"ID\",\"as\":\"ID\",\"or\":\"ID\",\"te\":\"ID\",\"kn\":\"ID\",\"ta\":\"ID\",\"ur\":\"ID\",\"pa\":\"ID\"},\"elementTooltip\":{\"en\":\"ID\",\"hi\":\"ID\",\"mr\":\"ID\",\"gu\":\"ID\",\"bn\":\"ID\",\"as\":\"ID\",\"or\":\"ID\",\"te\":\"ID\",\"kn\":\"ID\",\"ta\":\"ID\",\"ur\":\"ID\",\"pa\":\"ID\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":18,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"child_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"element_value\":\"CH-\",\"elementLabel\":{\"en\":\"Child Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"বাচ্ছার কোড\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"elementTooltip\":{\"en\":\"Child Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"Child Code\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"element_data\":{\"options\":[],\"data_url\":\"\",\"method\":\"get\",\"data_paramters\":{}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":19,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"child_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":16,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"qca_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Quaterly Child Assessment\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":20,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_qca\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":21,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_qca\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":22,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"eng_qca\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Eng Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":23,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"evs_qca\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"EVS Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":24,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"other_qca\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Other Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":25,\"element_type\":\"ElementDropDown\",\"element_size\":1,\"database_param\":\"leadership\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Leadership\"},\"elementTooltip\":{\"en\":\"Leadership\"},\"element_data\":{\"options\":[{\"option_id\":\"A\",\"option_name\":\"A\"},{\"option_id\":\"B\",\"option_name\":\"B\"},{\"option_id\":\"C\",\"option_name\":\"C\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\"},{\"element_id\":26,\"element_type\":\"ElementDropDown\",\"element_size\":1,\"database_param\":\"collaboration\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Collaboration\"},\"elementTooltip\":{\"en\":\"Collaboration\"},\"element_data\":{\"options\":[{\"option_id\":\"A\",\"option_name\":\"A\"},{\"option_id\":\"B\",\"option_name\":\"B\"},{\"option_id\":\"C\",\"option_name\":\"C\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\"},{\"element_id\":27,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"is_active\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"1\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":28,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"quater\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"2\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":29,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"ay\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"22-23\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":128,\"element_type\":\"ElementButton\",\"element_size\":12,\"database_param\":\"btn_save\",\"is_required\":\"false\",\"is_editable\":\"true\",\"input_type\":\"button\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"elementTooltip\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"element_data\":{\"options\":[],\"submit-url\":\"http://127.0.0.1:8000/qca/\",\"method\":\"post\",\"parameters\":{\"action\":\"insert\"}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null}]},{\"element_id\":\"2\",\"element_type\":\"table\",\"element_size\":12,\"element_data\":{\"element_title\":\"Child Profile \",\"element_subtitle\":\"\",\"element_url\":\"http://127.0.0.1:8000/qca\",\"element_parameters\":{\"unit_id\":\"1\"},\"element_header\":[{\"param\":\"qca_id\",\"label\":\"QCA ID\"},{\"param\":\"child_code\",\"label\":\"Child Code\"},{\"param\":\"child_name\",\"label\":\"Child Name\"},{\"param\":\"lang_qca\",\"label\":\"Lang\"},{\"param\":\"math_qca\",\"label\":\"Math\"},{\"param\":\"eng_qca\",\"label\":\"Eng\"},{\"param\":\"evs_qca\",\"label\":\"EVS\"},{\"param\":\"other_qca\",\"label\":\"Other\"},{\"param\":\"leadership\",\"label\":\"Leadership\"},{\"param\":\"collaboration\",\"label\":\"Collaboration\"}]}}]}]");
+      module.exports = JSON.parse("[{\"element_type\":\"page\",\"element_data\":{\"element_title\":\"\",\"element_subtitle\":\"\"},\"element_id\":1,\"childrens\":[{\"element_id\":0,\"element_type\":\"section\",\"element_size\":12,\"element_data\":{\"element_title\":\"Child Profile \",\"element_subtitle\":\"\"},\"childrens\":[{\"element_id\":6,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":7,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"user_id\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":8,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"block\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"ব্লক\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"elementTooltip\":{\"en\":\"Block\",\"hi\":\"Block\",\"mr\":\"Block\",\"gu\":\"Block\",\"bn\":\"Block\",\"as\":\"Block\",\"or\":\"Block\",\"te\":\"Block\",\"kn\":\"Block\",\"ta\":\"Block\",\"ur\":\"Block\",\"pa\":\"Block\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":9,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC কোড\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"elementTooltip\":{\"en\":\"LC Code\",\"hi\":\"LC Code\",\"mr\":\"LC Code\",\"gu\":\"LC Code\",\"bn\":\"LC Code\",\"as\":\"LC Code\",\"or\":\"LC Code\",\"te\":\"LC Code\",\"kn\":\"LC Code\",\"ta\":\"LC Code\",\"ur\":\"LC Code\",\"pa\":\"LC Code\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":10,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"lc_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC নাম\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"elementTooltip\":{\"en\":\"LC Name\",\"hi\":\"LC Name\",\"mr\":\"LC Name\",\"gu\":\"LC Name\",\"bn\":\"LC Name\",\"as\":\"LC Name\",\"or\":\"LC Name\",\"te\":\"LC Name\",\"kn\":\"LC Name\",\"ta\":\"LC Name\",\"ur\":\"LC Name\",\"pa\":\"LC Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":11,\"element_type\":\"ElementDropDown\",\"element_size\":4,\"database_param\":\"child_id\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"dropdown\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Select Child\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"বাচ্ছার কোড\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"elementTooltip\":{\"en\":\"Child ID\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"Child Code\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"element_data\":{\"options\":[],\"data_url\":\"http://15.206.158.219/child_profile_list/\",\"method\":\"get\",\"data_paramters\":{\"action\":\"get\",\"user_id\":\"1\"}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":12,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"child_code\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"element_value\":\"CH-\",\"elementLabel\":{\"en\":\"Child Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"বাচ্ছার কোড\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"elementTooltip\":{\"en\":\"Child Code\",\"hi\":\"Child Code\",\"mr\":\"Child Code\",\"gu\":\"Child Code\",\"bn\":\"Child Code\",\"as\":\"Child Code\",\"or\":\"Child Code\",\"te\":\"Child Code\",\"kn\":\"Child Code\",\"ta\":\"Child Code\",\"ur\":\"Child Code\",\"pa\":\"Child Code\"},\"element_data\":{\"options\":[],\"data_url\":\"\",\"method\":\"get\",\"data_paramters\":{}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":13,\"element_type\":\"ElementText\",\"element_size\":4,\"database_param\":\"child_name\",\"is_required\":\"true\",\"is_editable\":\"false\",\"input_type\":\"text\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":14,\"element_type\":\"ElementDropDown\",\"element_size\":2,\"database_param\":\"current_status\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Current Status\"},\"elementTooltip\":{\"en\":\"Current Status\"},\"element_data\":{\"options\":[{\"option_id\":\"1\",\"option_name\":\"Assessed\"},{\"option_id\":\"2\",\"option_name\":\"Absent\"},{\"option_id\":\"3\",\"option_name\":\"Child Exited\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\"},{\"element_id\":15,\"element_type\":\"ElementDropDown\",\"element_size\":3,\"database_param\":\"bl_grade\",\"is_required\":\"false\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Baseline Grade\"},\"elementTooltip\":{\"en\":\"Grade\"},\"element_data\":{\"options\":[{\"option_id\":\"0\",\"option_name\":\"0\"},{\"option_id\":\"1\",\"option_name\":\"1\"},{\"option_id\":\"2\",\"option_name\":\"2\"},{\"option_id\":\"3\",\"option_name\":\"3\"},{\"option_id\":\"4\",\"option_name\":\"4\"},{\"option_id\":\"5\",\"option_name\":\"5\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_visible\":\"14=1\"},{\"element_id\":16,\"element_type\":\"ElementDropDown\",\"element_size\":3,\"database_param\":\"bl_level\",\"is_required\":\"false\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Baseline Level\"},\"elementTooltip\":{\"en\":\"Level\"},\"element_data\":{\"options\":[{\"option_id\":\"0\",\"option_name\":\"Foundation\"},{\"option_id\":\"1\",\"option_name\":\"1\"},{\"option_id\":\"2\",\"option_name\":\"2\"},{\"option_id\":\"3\",\"option_name\":\"3\"},{\"option_id\":\"4\",\"option_name\":\"4\"},{\"option_id\":\"5\",\"option_name\":\"5\"},{\"option_id\":\"6\",\"option_name\":\"6\"},{\"option_id\":\"7\",\"option_name\":\"7\"},{\"option_id\":\"8\",\"option_name\":\"8\"},{\"option_id\":\"9\",\"option_name\":\"9\"},{\"option_id\":\"10\",\"option_name\":\"10\"},{\"option_id\":\"11\",\"option_name\":\"11\"},{\"option_id\":\"12\",\"option_name\":\"12\"},{\"option_id\":\"13\",\"option_name\":\"13\"},{\"option_id\":\"14\",\"option_name\":\"14\"},{\"option_id\":\"15\",\"option_name\":\"15\"},{\"option_id\":\"16\",\"option_name\":\"16\"},{\"option_id\":\"17\",\"option_name\":\"17\"},{\"option_id\":\"18\",\"option_name\":\"18\"},{\"option_id\":\"19\",\"option_name\":\"19\"},{\"option_id\":\"20\",\"option_name\":\"20\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\"},{\"element_id\":17,\"element_type\":\"ElementDropDown\",\"element_size\":3,\"database_param\":\"child_status\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Child Enrollment Status\"},\"elementTooltip\":{\"en\":\"Child Enrollment Status\"},\"element_data\":{\"options\":[{\"option_id\":\"1\",\"option_name\":\"Enrolled\"},{\"option_id\":\"2\",\"option_name\":\"Dropout\"},{\"option_id\":\"3\",\"option_name\":\"Droupout after graduation\"},{\"option_id\":\"4\",\"option_name\":\"mainstreamed after graduation\"},{\"option_id\":\"5\",\"option_name\":\"manistreamed after graduation\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\"},{\"element_id\":18,\"element_type\":\"ElementDropDown\",\"element_size\":3,\"database_param\":\"child_enrollment\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Child Enrollment\"},\"elementTooltip\":{\"en\":\"Child Enrollment\"},\"element_data\":{\"options\":[{\"option_id\":\"1\",\"option_name\":\"1-enrolled in Current Quarter\"},{\"option_id\":\"2\",\"option_name\":\"2- enrolled in Previous Quarter\"},{\"option_id\":\"3\",\"option_name\":\"3- enrolled before Previous Quarter\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\"},{\"element_id\":19,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"qca_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Quaterly Child Assessment\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":20,\"element_type\":\"ElementDropDown\",\"element_size\":2,\"database_param\":\"fundation_status\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Foundation Status\"},\"elementTooltip\":{\"en\":\"Foundation Status\"},\"element_data\":{\"options\":[{\"option_id\":\"0\",\"option_name\":\"N/A\"},{\"option_id\":\"1\",\"option_name\":\"Assessed\"},{\"option_id\":\"2\",\"option_name\":\"Absent\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"elementOptionDependent\":{\"1\":\"21\"}},{\"element_id\":21,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"foundation_qga\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Foundation Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"20=1\"},{\"element_id\":22,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"qca_lang_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Language\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":231,\"element_type\":\"ElementDropDown\",\"element_size\":2,\"database_param\":\"lang_status\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Language Status\"},\"elementTooltip\":{\"en\":\"Language Status\"},\"element_data\":{\"options\":[{\"option_id\":\"0\",\"option_name\":\"N/A\"},{\"option_id\":\"1\",\"option_name\":\"Assessed\"},{\"option_id\":\"2\",\"option_name\":\"Absent\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"elementOptionDependent\":{\"1\":\"23,24,25,26,27,28,29,30,31,32,33\"}},{\"element_id\":33,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_qga\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"equal\",\"dependent_operator\":\"33\",\"dependent_result\":\"23,24,25,26,27,28,29,30,31,32\",\"is_dependent\":true,\"expression\":\"sum(33)==sum(23+24+25+26+27+28+29+30+31+32)\",\"is_visible\":\"231=1\"},{\"element_id\":23,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q1\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Q1\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"231=1\"},{\"element_id\":24,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q2\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Q2\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"231=1\"},{\"element_id\":25,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q3\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Q3\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"231=1\"},{\"element_id\":26,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q4\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Q4\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"231=1\"},{\"element_id\":27,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q5\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Q5\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"231=1\"},{\"element_id\":28,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q6\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Q6\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"231=1\"},{\"element_id\":29,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q7\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Q7\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"231=1\"},{\"element_id\":30,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q8\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Q8\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"231=1\"},{\"element_id\":31,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q9\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Q9\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"231=1\"},{\"element_id\":32,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"lang_q10\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Lang Q10\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":\"\",\"is_visible\":\"231=1\"},{\"element_id\":34,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"qca_math_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":351,\"element_type\":\"ElementDropDown\",\"element_size\":2,\"database_param\":\"math_status\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"Math Status\"},\"elementTooltip\":{\"en\":\"Math Status\"},\"element_data\":{\"options\":[{\"option_id\":\"0\",\"option_name\":\"N/A\"},{\"option_id\":\"1\",\"option_name\":\"Assessed\"},{\"option_id\":\"2\",\"option_name\":\"Absent\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"elementOptionDependent\":{\"1\":\"35,36,37,38,39,40,41,42,43,44,45\"}},{\"element_id\":35,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q1\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Q1\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"351=1\"},{\"element_id\":36,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q2\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Q2\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"351=1\"},{\"element_id\":37,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q3\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Q3\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"351=1\"},{\"element_id\":38,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q4\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Q4\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"351=1\"},{\"element_id\":39,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q5\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Q5\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"351=1\"},{\"element_id\":40,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q6\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Q6\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"351=1\"},{\"element_id\":41,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q7\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Q7\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"351=1\"},{\"element_id\":42,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q8\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Q8\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"351=1\"},{\"element_id\":43,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q9\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Q9\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"351=1\"},{\"element_id\":44,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_q10\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Q10\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"351=1\"},{\"element_id\":45,\"element_type\":\"ElementText\",\"element_size\":2,\"database_param\":\"math_qga\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Math Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"sum\",\"operator\":\"35,36,37,38,39,40,41,42,43,44\",\"operator_result\":\"45\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":null},{\"element_id\":46,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"qca_eng_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Others\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":471,\"element_type\":\"ElementDropDown\",\"element_size\":3,\"database_param\":\"eng_status\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"English Status\"},\"elementTooltip\":{\"en\":\"English Status\"},\"element_data\":{\"options\":[{\"option_id\":\"0\",\"option_name\":\"N/A\"},{\"option_id\":\"1\",\"option_name\":\"Assessed\"},{\"option_id\":\"2\",\"option_name\":\"Absent\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"elementOptionDependent\":{\"1\":\"47\"}},{\"element_id\":47,\"element_type\":\"ElementText\",\"element_size\":3,\"database_param\":\"eng_qga\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Eng Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"471=1\"},{\"element_id\":481,\"element_type\":\"ElementDropDown\",\"element_size\":3,\"database_param\":\"evs_status\",\"is_required\":\"true\",\"input_type\":\"dropdown\",\"elementLabel\":{\"en\":\"EVS Status\"},\"elementTooltip\":{\"en\":\"EVS Status\"},\"element_data\":{\"options\":[{\"option_id\":\"0\",\"option_name\":\"N/A\"},{\"option_id\":\"1\",\"option_name\":\"Assessed\"},{\"option_id\":\"2\",\"option_name\":\"Absent\"}]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"elementOptionDependent\":{\"1\":\"48\"}},{\"element_id\":48,\"element_type\":\"ElementText\",\"element_size\":3,\"database_param\":\"evs_qga\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"EVS Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":true,\"expression\":null,\"is_visible\":\"481=1\"},{\"element_id\":941,\"element_type\":\"ElementLabel\",\"element_size\":12,\"database_param\":\"total_lbl\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"label\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Overall Score and New Levels\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"elementTooltip\":{\"en\":\"Child Profile\",\"hi\":\"Child Profile\",\"mr\":\"Child Profile\",\"gu\":\"Child Profile\",\"bn\":\"Child Profile\",\"as\":\"Child Profile\",\"or\":\"Child Profile\",\"te\":\"Child Profile\",\"kn\":\"Child Profile\",\"ta\":\"Child Profile\",\"ur\":\"Child Profile\",\"pa\":\"Child Profile\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":49,\"element_type\":\"ElementText\",\"element_size\":3,\"database_param\":\"total_qga\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Total Marks\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"sum\",\"operator\":\"21,33,45,47,48\",\"operator_result\":\"49\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":50,\"element_type\":\"ElementText\",\"element_size\":3,\"database_param\":\"new_level\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"20\",\"elementLabel\":{\"en\":\"New Levels\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":55,\"element_type\":\"ElementText\",\"element_size\":3,\"database_param\":\"new_grade\",\"is_required\":\"true\",\"is_editable\":\"true\",\"input_type\":\"number\",\"min_val\":\"0\",\"max_val\":\"20\",\"elementLabel\":{\"en\":\"New Grade\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"বাচ্ছার নাম\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"elementTooltip\":{\"en\":\"Child Name\",\"hi\":\"Child Name\",\"mr\":\"Child Name\",\"gu\":\"Child Name\",\"bn\":\"Child Name\",\"as\":\"Child Name\",\"or\":\"Child Name\",\"te\":\"Child Name\",\"kn\":\"Child Name\",\"ta\":\"Child Name\",\"ur\":\"Child Name\",\"pa\":\"Child Name\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":51,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"is_active\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"1\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":52,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"quater\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"2\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":53,\"element_type\":\"ElementHidden\",\"element_size\":3,\"database_param\":\"ay\",\"is_required\":\"false\",\"is_editable\":\"false\",\"input_type\":\"hidden\",\"element_value\":\"22-23\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"elementTooltip\":{\"en\":\"User Id\",\"hi\":\"User Id\",\"mr\":\"User Id\",\"gu\":\"User Id\",\"bn\":\"User Id\",\"as\":\"User Id\",\"or\":\"User Id\",\"te\":\"User Id\",\"kn\":\"User Id\",\"ta\":\"User Id\",\"ur\":\"User Id\",\"pa\":\"User Id\"},\"element_data\":{\"options\":[]},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null},{\"element_id\":54,\"element_type\":\"ElementButton\",\"element_size\":12,\"database_param\":\"btn_save\",\"is_required\":\"false\",\"is_editable\":\"true\",\"input_type\":\"button\",\"min_val\":\"\",\"max_val\":\"\",\"elementLabel\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"elementTooltip\":{\"en\":\"Save\",\"hi\":\"Save\",\"mr\":\"Save\",\"gu\":\"Save\",\"bn\":\"Save\",\"as\":\"Save\",\"or\":\"Save\",\"te\":\"Save\",\"kn\":\"Save\",\"ta\":\"Save\",\"ur\":\"Save\",\"pa\":\"Save\"},\"element_data\":{\"options\":[],\"submit-url\":\"http://127.0.0.1:8000/qca/\",\"method\":\"post\",\"parameters\":{\"action\":\"insert\"}},\"operation\":\"\",\"operator\":\"\",\"operator_result\":\"\",\"dependant\":\"\",\"dependent_operator\":\"\",\"dependent_result\":\"\",\"is_dependent\":false,\"expression\":null,\"is_visible\":null}]},{\"element_id\":\"2\",\"element_type\":\"table\",\"element_size\":12,\"element_data\":{\"element_title\":\"Child Profile \",\"element_subtitle\":\"\",\"element_url\":\"http://15.206.158.219/qca/\",\"element_parameters\":{\"unit_id\":\"1\"},\"element_header\":[{\"param\":\"qca_id\",\"label\":\"QGA ID\"},{\"param\":\"child_code\",\"label\":\"Child Code\"},{\"param\":\"child_name\",\"label\":\"Child Name\"},{\"param\":\"lang_qga\",\"label\":\"Lang\"},{\"param\":\"math_qga\",\"label\":\"Math\"},{\"param\":\"eng_qga\",\"label\":\"Eng\"},{\"param\":\"evs_qga\",\"label\":\"EVS\"},{\"param\":\"total_qga\",\"label\":\"Total\"}]}}]}]");
       /***/
     },
 
